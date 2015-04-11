@@ -3,7 +3,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <filter>
     <filter-name>CommonFilter</filter-name>
-    <filter-class>crud.filters.CommonFilter</filter-class>
+    <filter-class>hu.neuron.java.refactory.filter.CommonFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>CommonFilter</filter-name>
@@ -14,7 +14,7 @@
   	</description>
     <display-name>ReadTicketServlet</display-name>
     <servlet-name>ReadTicketServlet</servlet-name>
-    <servlet-class>crud.servlet.ReadTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.ReadTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReadTicketServlet</servlet-name>
@@ -25,7 +25,7 @@
   	</description>
     <display-name>AddCommentServlet</display-name>
     <servlet-name>AddCommentServlet</servlet-name>
-    <servlet-class>crud.servlet.AddCommentServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.AddCommentServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AddCommentServlet</servlet-name>
@@ -36,7 +36,7 @@
   	</description>
     <display-name>CreateTicketServlet</display-name>
     <servlet-name>CreateTicketServlet</servlet-name>
-    <servlet-class>crud.servlet.CreateTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.CreateTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateTicketServlet</servlet-name>
@@ -47,7 +47,7 @@
   	</description>
     <display-name>DeleteTicketServlet</display-name>
     <servlet-name>DeleteTicketServlet</servlet-name>
-    <servlet-class>crud.servlet.DeleteTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.DeleteTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DeleteTicketServlet</servlet-name>
@@ -58,7 +58,7 @@
   	</description>
     <display-name>SitesImportServlet</display-name>
     <servlet-name>SitesImportServlet</servlet-name>
-    <servlet-class>crud.servlet.SitesImportServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.SitesImportServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SitesImportServlet</servlet-name>
@@ -69,7 +69,7 @@
   	</description>
     <display-name>UpdateTicketServlet</display-name>
     <servlet-name>UpdateTicketServlet</servlet-name>
-    <servlet-class>crud.servlet.UpdateTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.UpdateTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UpdateTicketServlet</servlet-name>
