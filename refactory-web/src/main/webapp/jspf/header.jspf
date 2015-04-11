@@ -1,0 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Refactory</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="../resources/images/factory.png" />
+
+<link href="../resources/jqueryui/jquery-ui.css" rel="stylesheet">
+<script src="../resources/jquery/jquery.js"></script>
+<script src="../resources/jqueryui/jquery-ui.js"></script>
+
+<!-- Datatable -->
+<script src="../resources/datatable/js/jquery.dataTables.js"></script>
+<link
+	href="../resources/datatable/css/jquery.dataTables_themeroller.css"
+	rel="stylesheet">
+
+<!-- Elastic for textareas -->
+<script src="../resources/elastic/jquery.elastic.source.js"></script>
+
+<!-- Messages (growl) -->
+<script src="../resources/growl/jquery.growl.js" type="text/javascript"></script>
+<link href="../resources/growl/jquery.growl.css" rel="stylesheet"
+	type="text/css" />
+
+<!-- List -->
+<script src="../resources/list/list.min.js" type="text/javascript"></script>
+
+<!-- Application -->
+<script src="../resources/js/refactory.js"></script>
+<link href="../resources/style/ticketsite.css" rel="stylesheet">
+
+<link href="../resources/style/main.css" rel="stylesheet">
+<link href="../resources/style/login.css" rel="stylesheet">
+<link href="../resources/style/navbar.css" rel="stylesheet">
+
+<script>
+	
+</script>
+</head>
+<body>
+	<div class="header-content">
+		<div class="header-image-holder">
+			<img alt="" src="../resources/images/header3.jpg">
+		</div>
+	</div>

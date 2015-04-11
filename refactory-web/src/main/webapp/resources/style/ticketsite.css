@@ -1,0 +1,366 @@
+input, textarea {
+	font-size: 1rem;
+	border: none;
+	padding: 5px;
+	clear: both;
+	width: 150px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode',
+		'Lucida Sans', Tahoma, sans-serif;
+}
+
+input:hover, textarea:hover, input:focus, textarea:focus,
+	#ticket-editor-textarea-comment {
+	box-shadow: 0 0 0 1px #909090, inset 0 1px 3px rgba(0, 0, 0, 0.2), 0px
+		2px 2px rgba(0, 0, 0, 0.15);
+	outline: none;
+	background: url(../images/edit.png) no-repeat scroll 7px center;
+	padding-left: 30px;
+}
+
+input#ticket-editor-input-deadline:hover, input#ticket-editor-input-deadline:focus
+	{
+	background: url(../images/calendar.png) no-repeat scroll 7px 6px;
+}
+
+textarea {
+	resize: none;
+}
+
+table.dataTable tbody tr:hover {
+	background-color: #E2F9F9;
+}
+
+table.dataTable tbody tr.selected {
+	background-color: #B0E6E6;
+}
+
+table.dataTable td:first-child {
+	text-align: right;
+}
+
+table.dataTable td:first-child, table.dataTable th:first-child {
+	border-left: 1px solid #909090;
+}
+
+table.dataTable td:last-child, table.dataTable th:last-child {
+	border-right: 1px solid #909090;
+}
+
+hr.faded {
+	clear: both;
+	float: none;
+	width: 100%;
+	height: 1px;
+	margin: 1.4em 0;
+	border: none;
+	background: #ddd;
+	background-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(0, rgb(255
+		, 255, 255)), color-stop(0.1, rgb(221, 221, 221)),
+		color-stop(0.9, rgb(221, 221, 221)), color-stop(1, rgb(255, 255, 255)));
+	background-image: -moz-linear-gradient(left center, rgb(255, 255, 255)
+		0%, rgb(221, 221, 221) 10%, rgb(221, 221, 221) 90%, rgb(255, 255, 255)
+		100%);
+}
+
+fieldset {
+	border: 1px solid #F0F0F0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 15px;
+	margin-bottom: 15px;
+	-webkit-box-shadow: 2px 2px 1px 0px rgba(150, 150, 150, 0.7);
+	box-shadow: 2px 2px 1px 0px rgba(150, 150, 150, 0.7);
+}
+
+fieldset legend {
+	font-weight: bold;
+	color: #138687;
+}
+
+.ticket-content {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.footer-content {
+	height: 30px;
+	backround: white;
+}
+
+.ticket-table tbody tr {
+	cursor: pointer;
+}
+
+.ticket-table-container {
+	float: left;
+	width: 420px;
+}
+
+.ticket-editor-container {
+	border: 1px solid #909090;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	width: 735px;
+	padding: 15px;
+	background: white;
+	float: right;
+}
+
+.ticket-editor-header {
+	margin: 0 5px;
+}
+
+.ticket-title {
+	color: #138687;
+	font-size: 26px;
+	display: block;
+	line-height: 1.5em;
+}
+
+.ticket-subtitle {
+	
+}
+
+.ticket-editor-header-title-container {
+	float: left;
+	width: 350px;
+}
+
+.ticket-editor-header-button-container {
+	float: right;
+	margin-top: 5px;
+}
+
+.ticket-editor-content-descriptor {
+	float: left;
+	width: 410px;
+}
+
+.ticket-editor-content-descriptor .select-menu {
+	width: 150px;
+}
+
+.ticket-editor-content-descriptor textarea {
+	width: 339px;
+}
+
+.ticket-editor-content-descriptor textarea:hover,
+	.ticket-editor-content-descriptor textarea:focus {
+	width: 339px;
+}
+
+.ticket-editor-content-administration {
+	width: 310px;
+	float: left;
+	margin-left: 15px;
+}
+
+.ticket-editor-details-fieldset>div {
+	height: 40px;
+}
+
+.ticket-editor-content-administration .attribute-name,
+	.ticket-editor-content-descriptor .attribute-name {
+	display: inline-block;
+	width: 75px;
+	margin: 5px 0;
+	color: #596a72;
+}
+
+#ticket-editor-id, #ticket-editor-created {
+	padding-left: 5px;
+}
+
+#ticket-editor-input-title {
+	width: 280px;
+}
+
+#ticket-editor-input-title:focus, #ticket-editor-input-title:hover {
+	width: 255px;
+}
+
+.ticket-editor-comments-fieldset button {
+	float: right;
+	margin-top: 14px;
+}
+
+/* Comment list style */
+.ticket-editor-comments-fieldset .list {
+	list-style-type: none;
+	padding: 0px;
+}
+
+.ticket-editor-comments-fieldset .list li>div {
+	padding: 0px 10px;
+}
+
+.ticket-editor-comments-fieldset .list li>div .user {
+	font-weight: bold;
+	color: #138687;
+}
+
+.ticket-editor-comments-fieldset .list li>div .added {
+	display: inline-block;
+	float: right;
+}
+/* Comment list style */
+
+/* Select menu style */
+.ui-selectmenu-button {
+	border: none;
+	background: white;
+	font-size: 1em;
+	position: absolute;
+	margin-top: 2px;
+}
+
+.ui-selectmenu-button {
+	border: none;
+	background: white;
+	font-size: 1em;
+	margin-left: 5px;
+}
+
+.ui-selectmenu-button:focus, .ui-selectmenu-button:hover {
+	box-shadow: 0 0 0 1px #909090, inset 0 1px 3px rgba(0, 0, 0, 0.2), 0px
+		2px 2px rgba(0, 0, 0, 0.15);
+	outline: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.ui-selectmenu-button span.ui-selectmenu-text {
+	padding: 6px 2.1em 7px 5px;
+	font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode',
+		'Lucida Sans', Tahoma, sans-serif;
+	font-weight: normal;
+	color: black;
+	line-height: 1;
+}
+
+.ui-selectmenu-menu .ui-menu {
+	margin: 2px 0px 0px -1px;
+	background: rgb(255, 255, 255);
+	-webkit-box-shadow: 2px 2px 1px 0px rgba(150, 150, 150, 0.7);
+	box-shadow: 2px 2px 1px 0px rgba(150, 150, 150, 0.7);
+}
+
+.ui-selectmenu-menu .ui-menu .ui-menu-item {
+	font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode',
+		'Lucida Sans', Tahoma, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	color: black;
+}
+
+.ui-selectmenu-menu .ui-menu .ui-menu-item.ui-state-focus {
+	border: none;
+	background: rgb(206, 220, 231); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
+		rgba(19, 135, 135, 1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(206,
+		220, 231, 1)), color-stop(100%, rgba(19, 135, 135, 1)));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
+		rgba(19, 135, 135, 1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
+		rgba(19, 135, 135, 1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
+		rgba(19, 135, 135, 1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(206, 220, 231, 1) 0%,
+		rgba(19, 135, 135, 1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7',
+		endColorstr='#138787', GradientType=0); /* IE6-9 */
+}
+
+.ui-state-default .ui-icon {
+	background-image: none;
+}
+
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
+	background: url(../images/select.png) no-repeat;
+}
+
+/* Select menu style */
+
+/* Datatable */
+.ui-widget-header {
+	background: rgb(79, 167, 167); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(79,
+		167, 167, 1)), color-stop(50%, rgba(45, 143, 143, 1)),
+		color-stop(52%, rgba(19, 135, 135, 1)),
+		color-stop(100%, rgba(8, 107, 107, 1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4fa7a7',
+		endColorstr='#086b6b', GradientType=0); /* IE6-9 */
+	border: none;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
+	.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing,
+	.dataTables_wrapper .dataTables_paginate {
+	color: white;
+}
+
+.dataTables_wrapper select {
+	height: 25px;
+	border-radius: 5px;
+	font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode',
+		'Lucida Sans', Tahoma, sans-serif;
+	font-size: 16px;
+}
+
+.dataTables_wrapper input {
+	background: white url(../images/search.png) no-repeat scroll 7px center;
+}
+
+ticket /* Datatable */
+	/* Growl */      
+.growl {
+	color: #FFF;
+	background-position: 10px center;
+}
+
+.growl.growl-default {
+	background: #138687 url(../images/info.png) no-repeat 10px center;
+}
+
+.growl.growl-warning {
+	background: #F39C12 url(../images/warning.png) no-repeat 10px center;
+}
+
+.growl.growl-error {
+	background: #C0392B url(../images/error.png) no-repeat 10px center;
+}
+
+.growl .growl-title {
+	font-size: 18px;
+	line-height: 24px;
+	margin-left: 40px;
+}
+
+.growl .growl-message {
+	font-size: 14px;
+	line-height: 18px;
+	margin-left: 40px;
+}
