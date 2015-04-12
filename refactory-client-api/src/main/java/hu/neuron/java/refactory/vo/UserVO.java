@@ -19,6 +19,16 @@ public class UserVO implements Serializable {
 		
 	}
 	
+	public UserVO(String loginName, String fullName, String email,
+			String password, RoleType role) {
+		super();
+		this.loginName = loginName;
+		this.fullName = fullName;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+
 	public String getLoginName() {
 		return loginName;
 	}

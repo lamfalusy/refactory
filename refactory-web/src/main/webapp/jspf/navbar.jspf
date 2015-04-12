@@ -5,6 +5,7 @@
 			<li><a href="index.jsp" class="">Tickets</a></li>
 			<li><a href="project.jsp" class="">Projects</a></li>
 			<li><a href="import.jsp" class="">Import</a></li>
+			<li><a href="adminPage.jsp" class="">Admin</a></li>
 			<!--   <li><a href="#">Template</a>
           <ul>
             <li><a href="#">temp1</a></li>
