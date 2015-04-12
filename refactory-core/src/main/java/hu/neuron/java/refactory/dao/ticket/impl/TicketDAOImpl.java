@@ -21,6 +21,7 @@ public class TicketDAOImpl extends FakeAbstractDAOBase<Ticket> implements Ticket
 		ret.setDescription(entity.getDescription());
 		ret.setPriority(entity.getPriority());
 		ret.setProjectId(entity.getProjectId());
+		ret.setProjectName(ProjectDAOImpl.entityToVO((Project) FakeDB.findById(entity.getProjectId())).getName());
 		ret.setReporter(UserDAOImpl.entityToVO((User) FakeDB.findById(entity.getReporterId())));
 		ret.setStatus(entity.getStatus());
 		ret.setTitle(entity.getTitle());

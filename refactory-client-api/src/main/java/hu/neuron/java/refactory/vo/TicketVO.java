@@ -14,6 +14,7 @@ public class TicketVO implements Serializable {
 
 	private Long id;
 	private Long projectId;
+	private String projectName;
 	private String title;
 	private TicketType type;
 	private StatusType status;
@@ -42,6 +43,14 @@ public class TicketVO implements Serializable {
 
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public String getTitle() {
