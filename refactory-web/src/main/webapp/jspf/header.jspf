@@ -30,6 +30,7 @@
 
 <!-- Application -->
 <script src="../resources/js/refactory.js"></script>
+<script src="../resources/js/navbar.js"></script>
 <link href="../resources/style/ticketsite.css" rel="stylesheet">
 
 <link href="../resources/style/main.css" rel="stylesheet">
@@ -41,8 +42,9 @@
 </script>
 </head>
 <body>
-	<div class="header-content">
-		<div class="header-image-holder">
-			<img alt="" src="../resources/images/header3.jpg">
+	<div class="content">
+		<div class="header-content">
+			<div class="header-image-holder">
+				<img alt="" src="../resources/images/header3.jpg">
+			</div>
 		</div>
-	</div>

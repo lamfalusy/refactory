@@ -75,6 +75,16 @@
     <servlet-name>UpdateTicketServlet</servlet-name>
     <url-pattern>/secured/UpdateTicketServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetUsersServlet</display-name>
+    <servlet-name>GetUsersServlet</servlet-name>
+    <servlet-class>hu.neuron.java.refactory.servlet.GetUsersServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUsersServlet</servlet-name>
+    <url-pattern>/secured/GetUsersServlet</url-pattern>
+  </servlet-mapping>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>User Content</web-resource-name>

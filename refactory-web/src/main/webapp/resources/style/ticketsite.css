@@ -1,3 +1,9 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
 input, textarea {
 	font-size: 1rem;
 	border: none;
@@ -23,6 +29,10 @@ input:hover, textarea:hover, input:focus, textarea:focus,
 input#ticket-editor-input-deadline:hover, input#ticket-editor-input-deadline:focus
 	{
 	background: url(../images/calendar.png) no-repeat scroll 7px 6px;
+}
+
+input#ticket-editor-input-assignee:hover, input#ticket-editor-input-assignee:focus {
+	background: url(../images/user.png) no-repeat scroll 7px 6px;
 }
 
 textarea {
@@ -81,6 +91,11 @@ fieldset legend {
 	color: #138687;
 }
 
+.content {
+	min-height: 100%;
+	position: relative;
+}
+
 .ticket-content {
 	width: 1200px;
 	margin: 0 auto;
@@ -88,7 +103,13 @@ fieldset legend {
 
 .footer-content {
 	height: 30px;
-	backround: white;
+	background: #138687;
+	color: white;
+	text-align: center;
+	margin-top: 20px;
+	width: 100%;
+	line-height: 30px;
+	bottom: 0;
 }
 
 .ticket-table tbody tr {
@@ -160,7 +181,7 @@ fieldset legend {
 	margin-left: 15px;
 }
 
-.ticket-editor-details-fieldset>div {
+.fieldset-input-fixed-height>div {
 	height: 40px;
 }
 
@@ -172,7 +193,7 @@ fieldset legend {
 	color: #596a72;
 }
 
-#ticket-editor-id, #ticket-editor-created {
+.ticket-editor-value-field {
 	padding-left: 5px;
 }
 
@@ -261,33 +282,72 @@ fieldset legend {
 
 .ui-selectmenu-menu .ui-menu .ui-menu-item.ui-state-focus {
 	border: none;
-	background: rgb(206, 220, 231); /* Old browsers */
-	background: -moz-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
-		rgba(19, 135, 135, 1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(206,
-		220, 231, 1)), color-stop(100%, rgba(19, 135, 135, 1)));
-	/* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
-		rgba(19, 135, 135, 1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
-		rgba(19, 135, 135, 1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(206, 220, 231, 1) 0%,
-		rgba(19, 135, 135, 1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom, rgba(206, 220, 231, 1) 0%,
-		rgba(19, 135, 135, 1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7',
-		endColorstr='#138787', GradientType=0); /* IE6-9 */
+	background: rgb(79, 167, 167);
+	background: -moz-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(79,
+		167, 167, 1)), color-stop(50%, rgba(45, 143, 143, 1)),
+		color-stop(52%, rgba(19, 135, 135, 1)),
+		color-stop(100%, rgba(8, 107, 107, 1)));
+	background: -webkit-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: -o-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: -ms-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: linear-gradient(to bottom, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	color: white;
 }
 
 .ui-state-default .ui-icon {
 	background-image: none;
 }
 
-.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
+.ui-selectmenu-button.ui-state-hover .ui-icon, .ui-state-focus .ui-icon
+	{
 	background: url(../images/select.png) no-repeat;
 }
 
 /* Select menu style */
+
+/* Autocomplete menu style */
+.ui-menu .ui-menu-item {
+	border: none;
+	background: rgb(79, 167, 167);
+	background: -moz-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(79,
+		167, 167, 1)), color-stop(50%, rgba(45, 143, 143, 1)),
+		color-stop(52%, rgba(19, 135, 135, 1)),
+		color-stop(100%, rgba(8, 107, 107, 1)));
+	background: -webkit-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: -o-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: -ms-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	background: linear-gradient(to bottom, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%);
+	color: white;
+	font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode',
+		'Lucida Sans', Tahoma, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+
+/* Autocomplete menu style */
 
 /* Datatable */
 .ui-widget-header {
@@ -335,7 +395,7 @@ fieldset legend {
 }
 
 ticket /* Datatable */
-	/* Growl */      
+	/* Growl */         
 .growl {
 	color: #FFF;
 	background-position: 10px center;
