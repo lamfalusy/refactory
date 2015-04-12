@@ -1,6 +1,7 @@
 package hu.neuron.java.refactory.service;
 
 import hu.neuron.java.refactory.dao.CommentDAOFactory;
+import hu.neuron.java.refactory.dao.comment.impl.CommentDAOImpl;
 import hu.neuron.java.refactory.datasource.FakeDB;
 import hu.neuron.java.refactory.entity.Comment;
 import hu.neuron.java.refactory.entity.Ticket;
@@ -33,14 +34,14 @@ public class CommentServiceImpl implements CommentService {
 	public List<CommentVO> getCommentsToTicket(Long ticketId) {
 		List<CommentVO> ret = new ArrayList<CommentVO>();
 		for(Long cid : ((Ticket) FakeDB.findById(ticketId)).getComments()){
-			ret.add(this.entitiyToVO((Comment) FakeDB.findById(cid)));
+			ret.add(CommentDAOImpl.entitiyToVO((Comment) FakeDB.findById(cid)));
 		}
 		return ret;
 	}
 
 	@Override
 	public CommentVO getCommentFromId(Long commentId) {
-		return this.entitiyToVO((Comment) FakeDB.findById(commentId));
+		return CommentDAOImpl.entitiyToVO((Comment) FakeDB.findById(commentId));
 	}
 
 	@Override
@@ -52,14 +53,4 @@ public class CommentServiceImpl implements CommentService {
 		}
 	}
 	
-	private CommentVO entitiyToVO(Comment comment){
-		CommentVO ret = new CommentVO();
-		
-		ret.setAdded(comment.getAdded());
-		ret.setComment(comment.getComment());
-		ret.setId(comment.getId());
-		//ret.setUser(FakeDB.findById(comment.getUser()));
-		
-		return ret;
-	}
 }

@@ -12,6 +12,7 @@ public class UserVO implements Serializable {
 	private String loginName;
 	private String fullName;
 	private String email;
+	private String password;
 	private RoleType role;
 	
 	public UserVO() {
@@ -36,6 +37,15 @@ public class UserVO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public RoleType getRole() {
 		return role;
 	}

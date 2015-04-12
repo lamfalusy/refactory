@@ -13,13 +13,13 @@ public class TicketVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private String project;
+	private Long projectId;
 	private String title;
 	private TicketType type;
 	private StatusType status;
 	private PriorityType priority;
-	private String reporter;
-	private String assignee;
+	private UserVO reporter;
+	private UserVO assignee;
 	private Date created;
 	private Date deadline;
 	private String description;
@@ -36,12 +36,12 @@ public class TicketVO implements Serializable {
 		this.id = id;
 	}
 
-	public String getProject() {
-		return project;
+	public Long getProjectId() {
+		return projectId;
 	}
 
-	public void setProject(String project) {
-		this.project = project;
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getTitle() {
@@ -76,19 +76,19 @@ public class TicketVO implements Serializable {
 		this.priority = priority;
 	}
 
-	public String getReporter() {
+	public UserVO getReporter() {
 		return reporter;
 	}
 
-	public void setReporter(String reporter) {
+	public void setReporter(UserVO reporter) {
 		this.reporter = reporter;
 	}
 
-	public String getAssignee() {
+	public UserVO getAssignee() {
 		return assignee;
 	}
 
-	public void setAssignee(String assignee) {
+	public void setAssignee(UserVO assignee) {
 		this.assignee = assignee;
 	}
 
@@ -126,7 +126,7 @@ public class TicketVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TicketVO [id=" + id + ", project=" + project + ", title="
+		return "TicketVO [id=" + id + ", project=" + projectId + ", title="
 				+ title + ", type=" + type + ", status=" + status
 				+ ", priority=" + priority + ", reporter=" + reporter
 				+ ", assignee=" + assignee + ", created=" + created

@@ -1,13 +1,12 @@
 package hu.neuron.java.refactory.servlet;
 
-import hu.neuron.java.refactory.service.DBMock;
+import hu.neuron.java.refactory.service.ServiceLocator;
 import hu.neuron.java.refactory.sitesimport.exception.SitesImportException;
 import hu.neuron.java.refactory.sitesimport.service.SitesImportFacade;
 import hu.neuron.java.refactory.sitesimport.service.impl.SitesImportFacadeImpl;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -49,7 +48,6 @@ public class SitesImportServlet extends HttpServlet {
 		SitesImportFacade sitesImportFacade = new SitesImportFacadeImpl();
 		
 		String url = request.getParameter("url");
-		HashMap<Long, TicketVO> db = DBMock.getDb();
 		
 		int index = 0;
 		
@@ -58,19 +56,17 @@ public class SitesImportServlet extends HttpServlet {
 			for(TicketVO ticket : tickets){
 				index++;
 				
-				int id = db.size()+1;
-				ticket.setId(Long.valueOf(id));
-				ticket.setProject("UPC-WS");
+				//ticket.setProject("UPC-WS");
 				ticket.setTitle("Sites CPD hiba "+index);
 				ticket.setType(TicketType.BUG);
 				ticket.setStatus(StatusType.NONE);
 				ticket.setPriority(PriorityType.MINOR);
-				ticket.setReporter("Sites Import");
-				ticket.setAssignee("Horváth Ádám");
+				ticket.setReporter(null);
+				ticket.setAssignee(null);
 				ticket.setCreated(new Date());
 				ticket.setDeadline(new Date());
 				
-				db.put(ticket.getId(), ticket);
+				ServiceLocator.getTicketService().createTicket(ticket);
 			}
 			
 		} catch (SitesImportException e) {

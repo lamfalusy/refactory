@@ -1,16 +1,13 @@
 package hu.neuron.java.refactory.servlet;
 
-import hu.neuron.java.refactory.service.DBMock;
+import hu.neuron.java.refactory.service.ServiceLocator;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import hu.neuron.java.refactory.vo.TicketVO;
 
 /**
  * Servlet implementation class DeleteServlet
@@ -32,11 +29,9 @@ public class DeleteTicketServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HashMap<Long, TicketVO> db = DBMock.getDb();
-		
 		if (request.getParameter("id") != null) {
 			Long id = new Long(request.getParameter("id"));
-			db.remove(id);
+			ServiceLocator.getTicketService().deleteTicket(id);
 			response.getWriter().write(id.toString());
 		}
 	}

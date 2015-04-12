@@ -1,10 +1,11 @@
 package hu.neuron.java.refactory.servlet;
 
-import hu.neuron.java.refactory.service.DBMock;
+import hu.neuron.java.refactory.service.ServiceLocator;
 import hu.neuron.java.refactory.util.GsonCreatorUtil;
+import hu.neuron.java.refactory.vo.TicketMinVO;
+import hu.neuron.java.refactory.vo.TicketVO;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-
-import hu.neuron.java.refactory.vo.TicketMinVO;
-import hu.neuron.java.refactory.vo.TicketVO;
 
 /**
  * Servlet implementation class UpdateServlet
@@ -40,18 +38,16 @@ public class UpdateTicketServlet extends HttpServlet {
 
 		String jsonRequest = request.getParameter("ticket");
 
-		HashMap<Long, TicketVO> db = DBMock.getDb();
-
 		Gson gson = GsonCreatorUtil.createGson();
 
 		TicketVO ticket = gson.fromJson(jsonRequest, TicketVO.class);
 
-		TicketVO ticketOld = db.get(ticket.getId());
+		TicketVO ticketOld = ServiceLocator.getTicketService().getTicketById(ticket.getId());
 
 		ticket.setCreated(ticketOld.getCreated());
 		ticket.setComments(ticketOld.getComments());
 
-		db.put(ticket.getId(), ticket);
+		ServiceLocator.getTicketService().modifyTicket(ticket);
 
 		response.setCharacterEncoding("UTF-8");
 		gson.toJson(new TicketMinVO(ticket), response.getWriter());

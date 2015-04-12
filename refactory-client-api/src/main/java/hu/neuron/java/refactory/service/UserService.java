@@ -8,4 +8,7 @@ public interface UserService {
 	
 	void modifyUser(UserVO user);
 	
+	UserVO validateUser(String loginName, String password);
+	
+	UserVO getUserByLoginName(String loginName);
 }

@@ -1,12 +1,13 @@
 package hu.neuron.java.refactory.servlet;
 
-import hu.neuron.java.refactory.service.DBMock;
+import hu.neuron.java.refactory.service.ServiceLocator;
 import hu.neuron.java.refactory.util.GsonCreatorUtil;
+import hu.neuron.java.refactory.util.SessionUtil;
+import hu.neuron.java.refactory.vo.TicketVO;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-
-import hu.neuron.java.refactory.vo.TicketVO;
 
 /**
  * Servlet implementation class ReadTicketServlet
@@ -39,12 +38,11 @@ public class ReadTicketServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		HashMap<Long, TicketVO> db = DBMock.getDb();
 		Gson gson = GsonCreatorUtil.createGson();
 		
 		if (request.getParameter("id") != null) {
 
-			TicketVO ticket = db.get(new Long(request.getParameter("id")));
+			TicketVO ticket = ServiceLocator.getTicketService().getTicketById(Long.valueOf(request.getParameter("id")));
 			
 			response.setCharacterEncoding("UTF-8");
 
@@ -55,9 +53,11 @@ public class ReadTicketServlet extends HttpServlet {
 
 			gson.toJson(ticket, response.getWriter());
 		} else {
+			ArrayList<TicketVO> tickets = (ArrayList<TicketVO>) ServiceLocator.getTicketService().findAllTicketsByUserId(SessionUtil.getUserFromSession(request).getId());
 
-			Response rv = new Response(new ArrayList<TicketVO>(db.values()));
+			Response rv = new Response(tickets);
 			response.setCharacterEncoding("UTF-8");
+
 			gson.toJson(rv, response.getWriter());
 		}
 	}

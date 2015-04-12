@@ -13,5 +13,13 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-jaas</artifactId>
 		</dependency>
+		<dependency>
+		  	<groupId>hu.neuron.java</groupId>
+		    <artifactId>refactory-client-api</artifactId>
+		</dependency>
+		<dependency>
+		  	<groupId>hu.neuron.java</groupId>
+		    <artifactId>refactory-core</artifactId>
+		</dependency>
 	</dependencies>	
 </project>

@@ -1,5 +1,8 @@
 package hu.neuron.java.refactory.login;
 
+import hu.neuron.java.refactory.service.UserServiceImpl;
+import hu.neuron.java.refactory.vo.UserVO;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -49,8 +52,11 @@ public class LoginModule2 implements LoginModule {
 
 		String name = nameCallback.getName();
 		String password = new String(passwordCallback.getPassword());
-
-		if ("name".equals(name) && "password".equals(password)) {
+		
+		UserServiceImpl userService = new UserServiceImpl();
+		UserVO user = userService.validateUser(name, password);
+		
+		if (user != null) {
 			System.out.println("Success! You get to log in!");
 			setAuthenticated(true);
 
@@ -61,8 +67,8 @@ public class LoginModule2 implements LoginModule {
 		}
 
 		List<String> roleNames = new ArrayList<String>();
-		roleNames.add("user");
-		UserInfo userInfo = new UserInfo("name", null, roleNames);
+		roleNames.add(user.getRole().getName().toLowerCase());
+		UserInfo userInfo = new UserInfo(user.getLoginName(), null, roleNames);
 		currentUser = new JAASUserInfo(userInfo);
 		return authState;
 	}

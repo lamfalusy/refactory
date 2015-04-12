@@ -10,7 +10,7 @@ public class CommentVO implements Serializable, Comparable<CommentVO> {
 	private Long id;
 	private String comment;
 	private Date added;
-	private String user;
+	private UserVO user;
 
 	public CommentVO() {
 	}
@@ -31,11 +31,11 @@ public class CommentVO implements Serializable, Comparable<CommentVO> {
 		this.added = added;
 	}
 
-	public String getUser() {
+	public UserVO getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
+	public void setUser(UserVO user) {
 		this.user = user;
 	}
 

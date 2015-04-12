@@ -1,5 +1,7 @@
 package hu.neuron.java.refactory.service;
 
+import java.util.List;
+
 import hu.neuron.java.refactory.vo.TicketVO;
 
 public interface TicketService {
@@ -8,4 +10,9 @@ public interface TicketService {
 	
 	void modifyTicket(TicketVO ticket);
 	
+	TicketVO getTicketById(Long id);
+	
+	List<TicketVO> findAllTicketsByUserId(Long id);
+	
+	void deleteTicket(Long id);
 }

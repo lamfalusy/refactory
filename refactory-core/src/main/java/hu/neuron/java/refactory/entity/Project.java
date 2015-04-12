@@ -1,8 +1,5 @@
 package hu.neuron.java.refactory.entity;
 
-import hu.neuron.java.refactory.vo.TicketVO;
-import hu.neuron.java.refactory.vo.UserVO;
-
 import java.util.Date;
 import java.util.List;
 
