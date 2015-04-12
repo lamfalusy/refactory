@@ -1,6 +1,8 @@
 package hu.neuron.java.refactory.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import hu.neuron.java.refactory.dao.UserDAOFactory;
 import hu.neuron.java.refactory.dao.user.impl.UserDAOImpl;
@@ -60,13 +62,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO getUserByLoginName(String loginName) {
-UserVO ret = null;
+		UserVO ret = null;
 		
 		for(User u : UserDAOFactory.getUserDao().getAllUser()){
 			if(u.getLoginName().equals(loginName)){
 				ret = UserDAOImpl.entityToVO(u);
 				break;
 			}
+		}
+		
+		return ret;
+	}
+
+	@Override
+	public List<UserVO> getAllUser() {
+		ArrayList<UserVO> ret = new ArrayList<UserVO>();
+		
+		for(User u : UserDAOFactory.getUserDao().getAllUser()){
+			ret.add(UserDAOImpl.entityToVO(u));
 		}
 		
 		return ret;
