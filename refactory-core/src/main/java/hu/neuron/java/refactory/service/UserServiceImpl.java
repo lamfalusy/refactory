@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 		entity.setFullName(user.getFullName());
 		entity.setLoginName(user.getLoginName());
 		entity.setRole(user.getRole());
+		entity.setPassword(user.getPassword());
 		
 		try {
 			UserDAOFactory.getUserDao().insert(entity);
@@ -38,6 +39,10 @@ public class UserServiceImpl implements UserService {
 		entity.setFullName(user.getFullName());
 		entity.setLoginName(user.getLoginName());
 		entity.setRole(user.getRole());
+		
+		if(user.getPassword() != null){
+			entity.setPassword(user.getPassword());
+		}
 		
 		try {
 			UserDAOFactory.getUserDao().update(entity);
