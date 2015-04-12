@@ -67,6 +67,17 @@
   <servlet>
     <description>
   	</description>
+    <display-name>UserHandlerServlet</display-name>
+    <servlet-name>UserHandlerServlet</servlet-name>
+    <servlet-class>hu.neuron.java.refactory.servlet.UserHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserHandlerServlet</servlet-name>
+    <url-pattern>UserHandlerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>
+  	</description>
     <display-name>UpdateTicketServlet</display-name>
     <servlet-name>UpdateTicketServlet</servlet-name>
     <servlet-class>hu.neuron.java.refactory.servlet.UpdateTicketServlet</servlet-class>
