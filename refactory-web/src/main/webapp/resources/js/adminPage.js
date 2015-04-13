@@ -1,10 +1,15 @@
 $(function() {
 	var dialog, form,
-
+//	$( "#role" ).selectmenu();
 	// From
 	// http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-	emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/, fullName = $("#fullName"), name = $("#name"), email = $("#email"), password = $("#password"), allFields = $(
-			[]).add(fullName).add(name).add(email).add(password), tips = $(".validateTips");
+	emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/, 
+	fullName = $("#fullName"), 
+	name = $("#name"), 
+	email = $("#email"), 
+	password = $("#password"), 
+	role = $("#role"),
+	allFields = $([]).add(fullName).add(name).add(email).add(password).add(role), tips = $(".validateTips");
 
 	function updateTips(t) {
 		tips.text(t).addClass("ui-state-highlight");
@@ -51,16 +56,17 @@ $(function() {
 
 		console.log(valid);
 		if (valid) {
+			console.log(role.val());
 			$("#users tbody").append(
 					"<tr>" + "<td>" + fullName.val() + "</td>" + "<td>" + name.val() + "</td>" + "<td>" + email.val()
-							+ "</td>" + "<td>" + password.val() + "</td>" + "</tr>");
+							+ "</td>" + "<td>" + password.val() + "</td>" + "<td>" + role.val() + "</td>" + "</tr>");
 			
 			$.post("/refactory/UserHandlerServlet", {
 				fullName : fullName.val(),
 				name : name.val(),
 				email : email.val(),
 				password : password.val(),
-				role : "csicsker"
+				role : role.val(),
 			}, function(data) {
 				console.log(data);
 			});

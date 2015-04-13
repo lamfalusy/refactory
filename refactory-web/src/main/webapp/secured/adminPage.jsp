@@ -2,8 +2,7 @@
 <%@include file="../jspf/header.jspf"%>
 <%@include file="../jspf/navbar.jspf"%>
 <style>
-
-div#users-contain, fieldset,.validateTips {
+div#users-contain, fieldset, .validateTips {
 	font-size: 75%;
 }
 
@@ -29,7 +28,7 @@ h1 {
 }
 
 div#users-contain {
-	width: 350px;
+	width: 500px;
 	margin: 20px 0;
 }
 
@@ -69,7 +68,10 @@ div#users-contain table td, div#users-contain table th {
 				<input type="text" name="email" id="email" value="kiss@pisti.hu" class="text ui-widget-content ui-corner-all">
 				<label for="password">Password</label>
 				<input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
-
+				<label for="role">Role</label> <select name="role" id="role">
+					<option selected="selected">User</option>
+					<option>Admin</option>
+				</select>
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
 			</fieldset>
@@ -79,13 +81,14 @@ div#users-contain table td, div#users-contain table th {
 
 	<div id="users-contain" class="ui-widget">
 		<h1>Existing Users:</h1>
-		<table id="users" class="ui-widget ui-widget-content">
+		<table id="users" class="display" cellspacing="0" >
 			<thead>
-				<tr class="ui-widget-header ">
+				<tr>
 					<th>Full Name</th>
 					<th>Name</th>
 					<th>Email</th>
 					<th>Password</th>
+					<th>Role</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -94,9 +97,25 @@ div#users-contain table td, div#users-contain table th {
 					<td>jdoe</td>
 					<td>john.doe@example.com</td>
 					<td>johndoe1</td>
+					<td>User</td>
+				</tr>
+				<tr>
+					<td>Rohn Doe</td>
+					<td>rdoe</td>
+					<td>rohn.doe@example.com</td>
+					<td>aohndoe1</td>
+					<td>Admin</td>
 				</tr>
 			</tbody>
+			</tbody>
 		</table>
+		<script>
+			$(document).ready(function() {
+				$('#users').DataTable({
+					"bJQueryUI" : true
+				});
+			});
+		</script>
 	</div>
 	<button id="create-user">Create new user</button>
 

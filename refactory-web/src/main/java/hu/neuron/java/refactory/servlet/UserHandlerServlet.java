@@ -41,8 +41,13 @@ public class UserHandlerServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String role = request.getParameter("role");
-		//csicsker USER lett. akkor kell majd ha változik
-		UserVO user = new UserVO(name, fullName, email, password, RoleType.USER);
+		RoleType roleType = null;
+		if(role.equals("User")){
+			roleType = RoleType.USER;
+		} else if(role.equals("Admin")){
+			roleType = RoleType.ADMIN;
+		}
+		UserVO user = new UserVO(name, fullName, email, password, roleType);
 		ServiceLocator.getUserService().createUser(user);
 		System.out.println(user.toString());
 		
