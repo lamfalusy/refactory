@@ -23,6 +23,8 @@ $(document).ready(
 			/* Init comments */
 
 			initTable();
+			
+			initUsers();
 
 			// TABLAZAT SORAIRA KATTINTVA A FORM FELTOLTESE
 			table.on('click', 'tbody tr', function() {
@@ -35,6 +37,7 @@ $(document).ready(
 						// Get the ticket from server with the given id
 						table.$('tr.selected').removeClass('selected');
 						$(this).addClass('selected');
+						clearInputs();
 						getTicket(getSelectedRowData().id);
 						setButtonsDisabled(false);
 					}
@@ -54,10 +57,9 @@ $(document).ready(
 								.selectmenu().val();
 						ticket.priority = $('#ticket-editor-select-priority')
 								.selectmenu().val();
-						ticket.reporter = $('#ticket-editor-input-reporter')
-								.val();
-						ticket.assignee = $('#ticket-editor-input-assignee')
-								.val();
+						var assignee = new Object();
+						assignee.fullName = $('#ticket-editor-input-assignee').val();
+						ticket.assignee = assignee;
 						ticket.deadline = $('#ticket-editor-input-deadline')
 								.val();
 						ticket.description = $(
@@ -87,8 +89,6 @@ $(document).ready(
 								.selectmenu().val();
 						ticket.priority = $('#ticket-editor-select-priority')
 								.selectmenu().val();
-						ticket.reporter = $('#ticket-editor-input-reporter')
-								.val();
 						ticket.assignee = $('#ticket-editor-input-assignee')
 								.val();
 						ticket.deadline = $('#ticket-editor-input-deadline')
@@ -104,7 +104,6 @@ $(document).ready(
 			$('#add-comment-button').click(function() {
 				var comment = new Object();
 				comment.comment = $('#ticket-editor-textarea-comment').val();
-				comment.user = "Horvath Adam";
 				addComment(getSelectedRowData().id, comment);
 			});
 			
@@ -133,12 +132,29 @@ function initTable() {
 	});
 }
 
-function addRow(ticket) {
+function initUsers() {
+	
+	var users = [];
+	
+	$.ajax({
+		url : 'GetUsersServlet',
+		dataType : 'json',
+		success : function(response) {
+			
+			response.data.forEach(function(element) {
+				users.push(element.fullName);
+				console.log(element.fullName);
+			});
+			console.log(users);
+			$('#ticket-editor-input-assignee').autocomplete({
+			      source: users
+			});
+			$('#ticket-editor-input-assignee').attr('autocomplete', 'on');
+		}
+	});
+}
 
-	console.log(ticket.id);
-	console.log(ticket.title);
-	console.log(ticket.type);
-	console.log(ticket.created);
+function addRow(ticket) {
 
 	table.DataTable().row.add({
 		"id" : ticket.id,
@@ -168,9 +184,9 @@ function getTicket(id) {
 		$('#ticket-editor-header-id').html(response.id);
 		$('#ticket-editor-input-title').val(response.title);
 		$('#ticket-editor-id').html(response.id);
-		$('#ticket-editor-input-project').val(response.project);
-		$('#ticket-editor-input-reporter').val(response.reporter);
-		$('#ticket-editor-input-assignee').val(response.assignee);
+		$('#ticket-editor-input-project').val(response.projectName);
+		$('#ticket-editor-input-reporter').html(response.reporter.fullName);
+		$('#ticket-editor-input-assignee').val(response.assignee.fullName);
 		setValueOfSelect($('#ticket-editor-select-status'),
 			response.status);
 		setValueOfSelect($('#ticket-editor-select-type'),
@@ -182,16 +198,18 @@ function getTicket(id) {
 		$('#ticket-editor-textarea-description').val(
 			response.description);
 
-		if (response.comment != null) {
-			commentList.add(response.comments);
-		}
+		response.comments.forEach(function(element) {
+			var comment = new Object();
+			comment.user = element.user.fullName;
+			comment.added = element.added;
+			comment.comment = element.comment;
+			commentList.add(comment);
+		});
 	}});
 }
 
 function createTicket(ticket) {
 
-	console.log("creating tickt");
-	console.log(ticket.title);
 	$.ajax({
 		url : 'CreateTicketServlet',
 		data : {
@@ -202,7 +220,7 @@ function createTicket(ticket) {
 			addRow(response);
 			clearInputs();
 			$('#ticket-table tr.selected').removeClass('selected');
-			createMessageBox("Ticket[" + response.id + "] - " + response.title
+			createMessageBox("info", "Ticket[" + response.id + "] - " + response.title
 					+ " was created!");
 		}
 	});
@@ -217,7 +235,7 @@ function deleteTicket(row) {
 		success : function(response) {
 			if (response != null) {
 				table.DataTable().row('.selected').remove().draw(false);
-				createMessageBox("Ticket[" + row.id + "] - " + row.title
+				createMessageBox("info", "Ticket[" + row.id + "] - " + row.title
 						+ " was deleted!");
 			}
 		}
@@ -235,7 +253,7 @@ function updateTicket(ticket) {
 			clearInputs();
 			table.DataTable().row('.selected').remove().draw(false);
 			addRow(response);
-			createMessageBox("Ticket[" + ticket.id + "] - " + ticket.title
+			createMessageBox("info", "Ticket[" + ticket.id + "] - " + ticket.title
 					+ " was updated!");
 		}
 	});
@@ -253,7 +271,7 @@ function addComment(id, comment) {
 			$('#ticket-editor-textarea-comment').val('');
 			commentList.clear();
 			commentList.add(response);
-			createMessageBox("The following comment (" + comment.comment
+			createMessageBox("info", "The following comment (" + comment.comment
 					+ ") was added to Ticket[" + id + "]!")
 		}
 	});
@@ -268,7 +286,7 @@ function sitesImport(url) {
 		},
 		dataType : 'json',
 		success : function(response) {
-			createMessageBox("Success import!");
+			createMessageBox("info", "Success import!");
 		}
 	});
 }
@@ -291,9 +309,9 @@ function clearInputs() {
 	$('#ticket-editor-input-title').val('');
 	$('#ticket-editor-id').html('');
 	$('#ticket-editor-input-project').val('');
-	$('#ticket-editor-input-reporter').val('');
+	$('#ticket-editor-input-reporter').html('');
 	$('#ticket-editor-input-assignee').val('');
-	$('#ticket-editor-input-created').val('');
+	$('#ticket-editor-input-created').html('');
 	$('#ticket-editor-input-deadline').val('');
 	$('#ticket-editor-textarea-description').val('');
 	$('#ticket-editor-select-priority').val("Trivial").selectmenu("refresh");
@@ -301,22 +319,21 @@ function clearInputs() {
 	$('#ticket-editor-select-status').val("None").selectmenu("refresh");
 	$('#ticket-editor-header-title').html("Title");
 	$('#ticket-editor-header-id').html('');
-	console.log("gfdsaf");
+	$('#ticket-editor-textarea-comment').val('');
 	commentList.clear();
 	setButtonsDisabled(true);
 }
 
-function createMessageBox(message) {
-	$.growl({
-		title : "Information",
-		message : message
-	});
-}
-
-function createErrorBox(message) {
-	$.growl.error({
-		message : message
-	});
+function createMessageBox(level, message) {
+	if (level === "info") {
+		$.growl({title : "Information",
+			message : message
+		});
+	} else if (level === "error") {
+		$.growl.error({
+			message : message
+		});
+	}
 }
 
 function setButtonsDisabled(option) {
@@ -330,11 +347,11 @@ function checkFieldValue() {
 	var isValid = true;
 
 	if ($.trim($('#ticket-editor-input-title').val()) == "") {
-		createErrorBox("Title field cannot be empty!");
+		createMessageBox("error", "Title field cannot be empty!");
 		isValid = false;
 	}
 	if ($.trim($('#ticket-editor-input-project').val()) == "") {
-		createErrorBox("Project field cannot be empty!");
+		createMessageBox("error", "Project field cannot be empty!");
 		isValid = false;
 	}
 

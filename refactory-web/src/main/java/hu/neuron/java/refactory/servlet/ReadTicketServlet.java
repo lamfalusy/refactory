@@ -3,6 +3,7 @@ package hu.neuron.java.refactory.servlet;
 import hu.neuron.java.refactory.service.ServiceLocator;
 import hu.neuron.java.refactory.util.GsonCreatorUtil;
 import hu.neuron.java.refactory.util.SessionUtil;
+import hu.neuron.java.refactory.vo.ResponseWrapper;
 import hu.neuron.java.refactory.vo.TicketVO;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class ReadTicketServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		Gson gson = GsonCreatorUtil.createGson();
-		
+
 		if (request.getParameter("id") != null) {
 
 			TicketVO ticket = ServiceLocator.getTicketService().getTicketById(Long.valueOf(request.getParameter("id")));
@@ -55,10 +56,10 @@ public class ReadTicketServlet extends HttpServlet {
 		} else {
 			ArrayList<TicketVO> tickets = (ArrayList<TicketVO>) ServiceLocator.getTicketService().findAllTicketsByUserId(SessionUtil.getUserFromSession(request).getId());
 
-			Response rv = new Response(tickets);
+			ResponseWrapper<TicketVO> rw = new ResponseWrapper<TicketVO>(tickets);
 			response.setCharacterEncoding("UTF-8");
 
-			gson.toJson(rv, response.getWriter());
+			gson.toJson(rw, response.getWriter());
 		}
 	}
 
@@ -70,22 +71,4 @@ public class ReadTicketServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
-
-	public static class Response {
-		private ArrayList<TicketVO> data;
-
-		public Response(ArrayList<TicketVO> data) {
-			super();
-			this.data = data;
-		}
-
-		public ArrayList<TicketVO> getData() {
-			return data;
-		}
-
-		public void setData(ArrayList<TicketVO> data) {
-			this.data = data;
-		}
-	}
-
 }
