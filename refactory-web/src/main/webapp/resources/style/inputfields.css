@@ -22,7 +22,7 @@ fieldset legend {
 
 fieldset .attribute-name {
 	display: inline-block;
-	width: 75px;
+	min-width: 75px;
 	margin: 5px 0;
 	color: #596a72;
 }

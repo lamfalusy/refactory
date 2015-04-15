@@ -39,10 +39,6 @@ body {
 	margin: 0 auto;
 }
 
-.clear {
-	clear: both;
-}
-
 .footer-content {
 	height: 30px;
 	background: #138687;
@@ -68,4 +64,21 @@ hr.faded {
 	background-image: -moz-linear-gradient(left center, rgb(255, 255, 255)
 		0%, rgb(221, 221, 221) 10%, rgb(221, 221, 221) 90%, rgb(255, 255, 255)
 		100%);
+}
+
+.clear {
+	clear: both;
+}
+
+.toLeft {
+	display: block;
+	float: left;
+}
+
+.marginBottom20 {
+	margin-bottom: 20px !important;
+}
+
+.marginTop20 {
+	margin-top: 20px !important;
 }

@@ -54,63 +54,84 @@ div#users-contain table td, div#users-contain table th {
 }
 </style>-->
 <script src="../resources/js/adminPage.js"></script>
+
+<script>
+	$('#admin-site').addClass('active');
+</script>
+
 <div class="page-content">
-	<div id="dialog-form" title="Create new user">
-		<p class="validateTips">All form fields are required.</p>
 
-		<form>
-			<fieldset>
-				<label for="fullName">Full Name</label>
-				<input type="text" name="fullName" id="fullName" value="Kiss Pisti" class="text ui-widget-content ui-corner-all">
-				<label for="name">Name</label>
-				<input type="text" name="name" id="name" value="kissp" class="text ui-widget-content ui-corner-all">
-				<label for="email">Email</label>
-				<input type="text" name="email" id="email" value="kiss@pisti.hu" class="text ui-widget-content ui-corner-all">
-				<label for="password">Password</label>
-				<input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
-				<label for="role">Role</label> <select name="role" id="role">
-					<option selected="selected">User</option>
-					<option>Admin</option>
-				</select>
-				<!-- Allow form submission with keyboard without duplicating the dialog button -->
-				<input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
-			</fieldset>
-		</form>
-	</div>
-
-
-	<div id="users-contain" class="ui-widget">
-		<h1>Existing Users:</h1>
-		<table id="users" class="display" cellspacing="0" >
+	<div id="users-contain">
+		<table id="users" class="display" cellspacing="0">
 			<thead>
 				<tr>
-					<th>Full Name</th>
 					<th>Name</th>
 					<th>Email</th>
-					<th>Password</th>
 					<th>Role</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>John Doe</td>
-					<td>jdoe</td>
 					<td>john.doe@example.com</td>
-					<td>johndoe1</td>
 					<td>User</td>
 				</tr>
 				<tr>
 					<td>Rohn Doe</td>
-					<td>rdoe</td>
 					<td>rohn.doe@example.com</td>
-					<td>aohndoe1</td>
 					<td>Admin</td>
 				</tr>
 			</tbody>
 			</tbody>
 		</table>
 	</div>
-	<button id="create-user">Create new user</button>
+
+	<div class="form-editor user-form">
+		<div class="form-editor-header">
+			<div class="form-editor-header-title-container">
+				<span id="ticket-editor-header-title" class="title">User</span>
+				<div class="form-editor-subtitle">Name</div>
+			</div>
+			<div class="form-editor-header-button-container">
+				<button id="create-ticket-button">Create</button>
+				<button id="update-ticket-button" disabled="true">Update</button>
+				<button id="delete-ticket-button" disabled="true">Delete</button>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<hr class="faded" />
+		<div class="form-editor-content">
+			<div class="form-editor-content-descriptor content-panel">
+
+				<form>
+					<fieldset>
+						<legend>Details</legend>
+
+						<div>
+							<span class="attribute-name">Name:</span> <input id="full-name" name="full-name" type="text" value="Kiss Pisti">
+						</div>
+
+						<div>
+							<span class="attribute-name">User name:</span> <input id="user-name" type="text" value="kissp">
+						</div>
+
+						<div>
+							<span class="attribute-name">Email:</span> <input id="email" name="email" type="email" value="kiss@pisti.hu">
+						</div>
+
+						<div>
+							<span class="attribute-name">Role:</span> 
+							<select name="role" id="role" class="select-menu">
+								<option selected="selected">User</option>
+								<option>Admin</option>
+							</select>
+						</div>
+
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
 
 
 </div>

@@ -1,5 +1,14 @@
 @CHARSET "UTF-8";
 
+#ticket-table-wrapper {
+	width: 420px;
+}
+
+.ticket-form {
+	width: 735px;
+	float: right;
+}
+
 .ticket-editor-content-descriptor .select-menu {
 	width: 150px;
 }
@@ -46,10 +55,8 @@
 	float: right;
 }
 /* Comment list style */
-
-
 ticket /* Datatable */
-	/* Growl */         
+	/* Growl */          
 .growl {
 	color: #FFF;
 	background-position: 10px center;

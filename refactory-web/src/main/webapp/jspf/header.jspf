@@ -32,6 +32,7 @@
 <script src="../resources/js/refactory.js"></script>
 <script src="../resources/js/navbar.js"></script>
 <link href="../resources/style/ticketsite.css" rel="stylesheet">
+<link href="../resources/style/adminsite.css" rel="stylesheet">
 
 <link href="../resources/style/main.css" rel="stylesheet">
 <link href="../resources/style/login.css" rel="stylesheet">
