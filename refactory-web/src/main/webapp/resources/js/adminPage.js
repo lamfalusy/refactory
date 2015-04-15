@@ -61,7 +61,7 @@ $(function() {
 					"<tr>" + "<td>" + fullName.val() + "</td>" + "<td>" + name.val() + "</td>" + "<td>" + email.val()
 							+ "</td>" + "<td>" + password.val() + "</td>" + "<td>" + role.val() + "</td>" + "</tr>");
 			
-			$.post("/refactory/UserHandlerServlet", {
+			$.post("UserHandlerServlet", {
 				fullName : fullName.val(),
 				name : name.val(),
 				email : email.val(),
