@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import hu.neuron.java.refactory.type.PriorityType;
 import hu.neuron.java.refactory.type.StatusType;
 import hu.neuron.java.refactory.type.TicketType;
+import hu.neuron.java.refactory.util.SessionHandler;
+import hu.neuron.java.refactory.util.SessionUtil;
 import hu.neuron.java.refactory.vo.TicketVO;
 
 /**
@@ -56,13 +58,13 @@ public class SitesImportServlet extends HttpServlet {
 			for(TicketVO ticket : tickets){
 				index++;
 				
-				//ticket.setProject("UPC-WS");
+				ticket.setProjectName("UPC-WS");
 				ticket.setTitle("Sites CPD hiba "+index);
 				ticket.setType(TicketType.BUG);
 				ticket.setStatus(StatusType.NONE);
 				ticket.setPriority(PriorityType.MINOR);
-				ticket.setReporter(null);
-				ticket.setAssignee(null);
+				ticket.setReporter(SessionUtil.getUserFromSession(request));
+				ticket.setAssignee(SessionUtil.getUserFromSession(request));
 				ticket.setCreated(new Date());
 				ticket.setDeadline(new Date());
 				

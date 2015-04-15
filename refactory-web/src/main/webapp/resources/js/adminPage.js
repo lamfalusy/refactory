@@ -71,7 +71,7 @@ $(function() {
 							+ "</td>" + "<td>" + password.val() + "</td>"
 							+ "<td>" + role.val() + "</td>" + "</tr>");
 
-			$.post("/refactory/UserHandlerServlet", {
+			$.post("UserHandlerServlet", {
 				fullName : fullName.val(),
 				name : name.val(),
 				email : email.val(),
