@@ -93,7 +93,7 @@ div#users-contain table td, div#users-contain table th {
 				<div class="form-editor-subtitle">Name</div>
 			</div>
 			<div class="form-editor-header-button-container">
-				<button id="create-ticket-button">Create</button>
+				<button id="create-user">Create</button>
 				<button id="update-ticket-button" disabled="true">Update</button>
 				<button id="delete-ticket-button" disabled="true">Delete</button>
 			</div>

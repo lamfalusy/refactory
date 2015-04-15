@@ -1,19 +1,20 @@
 package hu.neuron.java.refactory.service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import hu.neuron.java.refactory.dao.UserDAOFactory;
 import hu.neuron.java.refactory.dao.user.impl.UserDAOImpl;
+import hu.neuron.java.refactory.datasource.DataSourceLocator;
 import hu.neuron.java.refactory.datasource.FakeDB;
 import hu.neuron.java.refactory.entity.User;
 import hu.neuron.java.refactory.vo.UserVO;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public Long createUser(UserVO user) {
+	public Long createUser(UserVO user) {		
 		User entity = new User();
 		
 		entity.setEmail(user.getEmail());
@@ -81,6 +82,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserVO> getAllUser() {
+		
+		System.out.println("kezdodik");
+		try {
+			DataSourceLocator.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		ArrayList<UserVO> ret = new ArrayList<UserVO>();
 		
 		for(User u : UserDAOFactory.getUserDao().getAllUser()){
