@@ -1,7 +1,7 @@
 <%@include file="../jspf/header.jspf"%>
 <%@include file="../jspf/navbar.jspf"%>
 
-<div class="ticket-content">
+<div class="page-content">
 	<div class="ticket-table-container">
 		<table id="ticket-table" class="ticket-table">
 			<thead>
@@ -19,15 +19,15 @@
 		</table>
 	</div>
 
-	<div class="ticket-editor-container">
-		<div class="ticket-editor-header">
-			<div class="ticket-editor-header-title-container">
-				<span id="ticket-editor-header-title" class="ticket-title">Title</span>
-				<div class="ticket-subtitle">
+	<div class="form-editor">
+		<div class="form-editor-header">
+			<div class="form-editor-header-title-container">
+				<span id="ticket-editor-header-title" class="title">Title</span>
+				<div class="form-editor-subtitle">
 					<span>Ticket id:</span> <span id="ticket-editor-header-id"></span>
 				</div>
 			</div>
-			<div class="ticket-editor-header-button-container">
+			<div class="form-editor-header-button-container">
 				<button id="create-ticket-button">Create</button>
 				<button id="update-ticket-button" disabled="true">Update</button>
 				<button id="delete-ticket-button" disabled="true">Delete</button>
@@ -35,8 +35,8 @@
 			<div class="clear"></div>
 		</div>
 		<hr class="faded" />
-		<div class="ticket-editor-content">
-			<div class="ticket-editor-content-descriptor content-panel">
+		<div class="form-editor-content">
+			<div class="form-editor-content-descriptor-narrow ticket-editor-content-descriptor content-panel">
 				<fieldset class="ticket-editor-details-fieldset fieldset-input-fixed-height">
 					<legend>Details</legend>
 					<div>
@@ -114,27 +114,27 @@
 					</div>
 				</fieldset>
 			</div>
-			<div class="ticket-editor-content-administration">
+			<div class="form-editor-content-narrow-second">
 				<fieldset class="ticket-editor-people-fieldset fieldset-input-fixed-height">
 					<legend>People</legend>
 					<div>
 						<span class="attribute-name">Reporter:</span> 
-						<span id="ticket-editor-input-reporter" class="ticket-editor-value-field"></span>
+						<span id="ticket-editor-input-reporter" class="form-editor-fixed-value-field"></span>
 					</div>
 					<div>
 						<span class="attribute-name">Assignee:</span> <input
-							id="ticket-editor-input-assignee" type="text">
+							id="ticket-editor-input-assignee" type="text" class="user">
 					</div>
 				</fieldset>
 				<fieldset class="ticket-editor-dated-fieldset fieldset-input-fixed-height">
 					<legend>Dates</legend>
 					<div>
 						<span class="attribute-name">Created:</span> <span
-							id="ticket-editor-created" class="ticket-editor-value-field"></span>
+							id="ticket-editor-created" class="form-editor-fixed-value-field"></span>
 					</div>
 					<div>
 						<span class="attribute-name">Deadline:</span> <input
-							id="ticket-editor-input-deadline" type="text">
+							id="ticket-editor-input-deadline" type="text" class="calendar">
 					</div>
 				</fieldset>
 			</div>

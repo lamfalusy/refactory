@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+.form-editor {
+	border: 1px solid #909090;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	width: 735px;
+	padding: 15px;
+	background: white;
+	float: right;
+}
+
+.form-editor-header {
+	margin: 0 5px;
+}
+
+.form-editor-subtitle {
+	
+}
+
+.form-editor-header-title-container {
+	float: left;
+	width: 350px;
+}
+
+.form-editor .title {
+	color: #138687;
+	font-size: 26px;
+	display: block;
+	line-height: 1.5em;
+}
+
+.form-editor-header-button-container {
+	float: right;
+	margin-top: 5px;
+}
+
+/*egy oszlopos editor*/
+.form-editor-content-descriptor {
+}
+
+/*két oszlopos editor*/
+.form-editor-content-descriptor-narrow {
+	float: left;
+	width: 410px;
+}
+
+.form-editor-content-descriptor-narrow-second {
+	width: 310px;
+	float: left;
+	margin-left: 15px;
+}
+
+.form-editor-fixed-value-field {
+	padding-left: 5px;
+}

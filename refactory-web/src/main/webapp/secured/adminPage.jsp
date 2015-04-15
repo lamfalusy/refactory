@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@include file="../jspf/header.jspf"%>
 <%@include file="../jspf/navbar.jspf"%>
-<style>
+<!--  style>
 div#users-contain, fieldset, .validateTips {
 	font-size: 75%;
 }
@@ -52,9 +52,9 @@ div#users-contain table td, div#users-contain table th {
 	border: 1px solid transparent;
 	padding: 0.3em;
 }
-</style>
+</style>-->
 <script src="../resources/js/adminPage.js"></script>
-<div class="content">
+<div class="page-content">
 	<div id="dialog-form" title="Create new user">
 		<p class="validateTips">All form fields are required.</p>
 
@@ -109,13 +109,6 @@ div#users-contain table td, div#users-contain table th {
 			</tbody>
 			</tbody>
 		</table>
-		<script>
-			$(document).ready(function() {
-				$('#users').DataTable({
-					"bJQueryUI" : true
-				});
-			});
-		</script>
 	</div>
 	<button id="create-user">Create new user</button>
 

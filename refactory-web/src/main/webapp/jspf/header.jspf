@@ -36,6 +36,9 @@
 <link href="../resources/style/main.css" rel="stylesheet">
 <link href="../resources/style/login.css" rel="stylesheet">
 <link href="../resources/style/navbar.css" rel="stylesheet">
+<link href="../resources/style/datatable.css" rel="stylesheet">
+<link href="../resources/style/formeditor.css" rel="stylesheet">
+<link href="../resources/style/inputfields.css" rel="stylesheet">
 
 <script>
 	
