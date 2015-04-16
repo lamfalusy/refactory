@@ -28,14 +28,27 @@
 <!-- List -->
 <script src="../resources/list/list.min.js" type="text/javascript"></script>
 
+<!-- Listbox -->
+<script src="../resources/listbox/listbox.js"></script>
+<link href="../resources/listbox/listbox.css" rel="stylesheet">
+
+<!-- PickList -->
+<script src="../resources/picklist/jquery-picklist.js"></script>
+<link href="../resources/picklist/jquery-picklist.css" rel="stylesheet">
+
 <!-- Application -->
 <script src="../resources/js/refactory.js"></script>
 <script src="../resources/js/navbar.js"></script>
 <link href="../resources/style/ticketsite.css" rel="stylesheet">
+<link href="../resources/style/projectsite.css" rel="stylesheet">
+<link href="../resources/style/adminsite.css" rel="stylesheet">
 
 <link href="../resources/style/main.css" rel="stylesheet">
 <link href="../resources/style/login.css" rel="stylesheet">
 <link href="../resources/style/navbar.css" rel="stylesheet">
+<link href="../resources/style/datatable.css" rel="stylesheet">
+<link href="../resources/style/formeditor.css" rel="stylesheet">
+<link href="../resources/style/inputfields.css" rel="stylesheet">
 
 <script>
 	

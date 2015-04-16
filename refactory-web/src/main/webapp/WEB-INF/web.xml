@@ -14,7 +14,7 @@
   	</description>
     <display-name>ReadTicketServlet</display-name>
     <servlet-name>ReadTicketServlet</servlet-name>
-    <servlet-class>hu.neuron.java.refactory.servlet.ReadTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.ticket.ReadTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReadTicketServlet</servlet-name>
@@ -25,7 +25,7 @@
   	</description>
     <display-name>AddCommentServlet</display-name>
     <servlet-name>AddCommentServlet</servlet-name>
-    <servlet-class>hu.neuron.java.refactory.servlet.AddCommentServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.ticket.AddCommentServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AddCommentServlet</servlet-name>
@@ -36,7 +36,7 @@
   	</description>
     <display-name>CreateTicketServlet</display-name>
     <servlet-name>CreateTicketServlet</servlet-name>
-    <servlet-class>hu.neuron.java.refactory.servlet.CreateTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.ticket.CreateTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateTicketServlet</servlet-name>
@@ -47,7 +47,7 @@
   	</description>
     <display-name>DeleteTicketServlet</display-name>
     <servlet-name>DeleteTicketServlet</servlet-name>
-    <servlet-class>hu.neuron.java.refactory.servlet.DeleteTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.ticket.DeleteTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DeleteTicketServlet</servlet-name>
@@ -73,14 +73,14 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UserHandlerServlet</servlet-name>
-    <url-pattern>UserHandlerServlet</url-pattern>
+    <url-pattern>/secured/UserHandlerServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description>
   	</description>
     <display-name>UpdateTicketServlet</display-name>
     <servlet-name>UpdateTicketServlet</servlet-name>
-    <servlet-class>hu.neuron.java.refactory.servlet.UpdateTicketServlet</servlet-class>
+    <servlet-class>hu.neuron.java.refactory.servlet.ticket.UpdateTicketServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UpdateTicketServlet</servlet-name>

@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+#users_wrapper {
+	width: 555px;
+}
+
+.user-form {
+	width: 570px;
+	float: right;
+}
+
+.user-form .attribute-name {
+	width: 90px;
+}

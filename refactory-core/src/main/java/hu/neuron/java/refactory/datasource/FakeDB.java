@@ -38,6 +38,16 @@ public class FakeDB {
 		
 		users.put(id, user1);
 		
+		User user3 = new User();
+		user3.setEmail("zsolt@zsolt.zs");
+		user3.setFullName("Fehérvári Zsolt");
+		user3.setId(id);
+		user3.setLoginName("fehervarizs");
+		user3.setPassword("fehervarizs1");
+		user3.setRole(RoleType.USER);
+		
+		users.put(id, user1);
+		
 		id = Long.valueOf(objects.size() + 1);
 		objects.put(id, User.class);
 		

@@ -1,0 +1,78 @@
+@CHARSET "UTF-8";
+
+div.dataTables_wrapper {
+	float: left;
+}
+
+table.dataTable {
+	font-size: 1em !important;
+}
+
+table.dataTable tbody tr:hover {
+	background-color: #E2F9F9;
+}
+
+table.dataTable tbody tr.selected {
+	background-color: #B0E6E6;
+}
+
+table.dataTable td:first-child {
+	text-align: right;
+}
+
+table.dataTable td:first-child, table.dataTable th:first-child {
+	border-left: 1px solid #909090;
+}
+
+table.dataTable td:last-child, table.dataTable th:last-child {
+	border-right: 1px solid #909090;
+}
+
+table.dataTable tbody tr {
+	cursor: pointer;
+}
+
+/* Datatable */
+.ui-widget-header {
+	background: rgb(79, 167, 167); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(79,
+		167, 167, 1)), color-stop(50%, rgba(45, 143, 143, 1)),
+		color-stop(52%, rgba(19, 135, 135, 1)),
+		color-stop(100%, rgba(8, 107, 107, 1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(79, 167, 167, 1) 0%,
+		rgba(45, 143, 143, 1) 50%, rgba(19, 135, 135, 1) 52%,
+		rgba(8, 107, 107, 1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4fa7a7',
+		endColorstr='#086b6b', GradientType=0); /* IE6-9 */
+	border: none;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
+	.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing,
+	.dataTables_wrapper .dataTables_paginate {
+	color: white;
+}
+
+.dataTables_wrapper select {
+	height: 25px;
+	border-radius: 5px;
+	font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode',
+		'Lucida Sans', Tahoma, sans-serif;
+	font-size: 16px;
+}
+
+.dataTables_wrapper input {
+	background: white url(../images/search.png) no-repeat scroll 7px center;
+}

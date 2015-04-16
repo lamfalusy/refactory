@@ -12,6 +12,10 @@ import hu.neuron.java.refactory.vo.UserVO;
 public class UserDAOImpl extends FakeAbstractDAOBase<User> implements UserDAO{
 	
 	public static UserVO entityToVO(User entity){
+		if(entity == null) {
+			return null;
+		}
+			
 		UserVO ret = new UserVO();
 		
 		ret.setId(entity.getId());

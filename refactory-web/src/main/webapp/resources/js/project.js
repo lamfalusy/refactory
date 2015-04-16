@@ -1,7 +1,14 @@
 $(document).ready(function() {
-	$('#users').dataTable({
+	$('#project-table').dataTable({
 		"bJQueryUI" : true
 	});
+	$('#project-tickets-table').dataTable({
+		"bJQueryUI" : true
+	});
+	$('select#project-tickets-list').listbox({'searchbar': true});
+	
+	$("#project-workers-picklist").pickList();
+	$("#project-managers-picklist").pickList();
 });
 
 $(function() {
