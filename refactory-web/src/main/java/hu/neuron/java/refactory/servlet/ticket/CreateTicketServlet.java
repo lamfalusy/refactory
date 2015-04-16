@@ -1,7 +1,8 @@
-package hu.neuron.java.refactory.servlet;
+package hu.neuron.java.refactory.servlet.ticket;
 
 import hu.neuron.java.refactory.service.ServiceLocator;
 import hu.neuron.java.refactory.util.GsonCreatorUtil;
+import hu.neuron.java.refactory.util.SessionHandler;
 
 import java.io.IOException;
 import java.util.Date;
@@ -43,6 +44,7 @@ public class CreateTicketServlet extends HttpServlet {
 
 		TicketVO ticket = gson.fromJson(jsonRequest, TicketVO.class);
 		ticket.setCreated(new Date());
+		ticket.setReporter(SessionHandler.getUserFromSession(request.getSession()));
 		
 		Long id = ServiceLocator.getTicketService().createTicket(ticket);
 		

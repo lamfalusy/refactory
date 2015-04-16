@@ -1,4 +1,4 @@
-package hu.neuron.java.refactory.servlet;
+package hu.neuron.java.refactory.servlet.ticket;
 
 import hu.neuron.java.refactory.serializer.DateSerializer;
 import hu.neuron.java.refactory.service.ServiceLocator;
