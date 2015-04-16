@@ -90,4 +90,17 @@ public class UserServiceImpl implements UserService {
 		return ret;
 	}
 
+	@Override
+	public UserVO getUserByFullName(String fullName) {
+		UserVO user = null;
+		for(User u : UserDAOFactory.getUserDao().getAllUser()){
+			if(u.getFullName().equals(fullName)){
+				user = UserDAOImpl.entityToVO(u);
+				break;
+			}
+		}
+		return user;
+	
+	}
+
 }

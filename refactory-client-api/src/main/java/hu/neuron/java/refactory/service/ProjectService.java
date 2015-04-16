@@ -19,4 +19,6 @@ public interface ProjectService {
 	void modifyProject(ProjectVO project);
 	
 	void deleteProject(Long projectId);
+	
+	ProjectVO getProjectById(Long projectId);
 }

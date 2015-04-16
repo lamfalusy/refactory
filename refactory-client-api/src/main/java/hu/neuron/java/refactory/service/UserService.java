@@ -14,5 +14,7 @@ public interface UserService {
 	
 	UserVO getUserByLoginName(String loginName);
 	
+	UserVO getUserByFullName(String fullName);
+	
 	List<UserVO> getAllUser();
 }

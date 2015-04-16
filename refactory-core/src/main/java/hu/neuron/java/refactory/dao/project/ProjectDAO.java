@@ -11,4 +11,5 @@ public interface ProjectDAO extends DAOBase<Project> {
 	
 	public List<Project> findAllProjectByWorkerId(Long id);
 	
+	public Project findProjectById(Long id);
 }

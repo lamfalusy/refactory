@@ -39,7 +39,7 @@ public class TicketDAOImpl extends FakeAbstractDAOBase<Ticket> implements Ticket
 			for (Long commentId: entity.getComments()) {
 				comments.add(CommentDAOImpl.entitiyToVO((Comment) FakeDB.findById(commentId)));
 			}
-			ret.setComments(comments);
+			ret.setComments(comments);  í
 		}
 		
 		

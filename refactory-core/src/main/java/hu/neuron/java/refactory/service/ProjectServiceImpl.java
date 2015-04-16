@@ -1,5 +1,8 @@
 package hu.neuron.java.refactory.service;
 
+import hu.neuron.java.refactory.dao.ProjectDAOFactory;
+import hu.neuron.java.refactory.dao.project.ProjectDAO;
+import hu.neuron.java.refactory.dao.project.impl.ProjectDAOImpl;
 import hu.neuron.java.refactory.vo.ProjectVO;
 
 import java.util.List;
@@ -46,6 +49,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public void deleteProject(Long projectId) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ProjectVO getProjectById(Long projectId) {
+		return ProjectDAOImpl.entityToVO(ProjectDAOFactory.getProjectDao().findProjectById(projectId));
 	}
 
 }
