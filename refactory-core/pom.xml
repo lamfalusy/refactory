@@ -13,5 +13,9 @@
 		  	<groupId>hu.neuron.java</groupId>
 		    <artifactId>refactory-client-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+		</dependency>
 	</dependencies>
 </project>

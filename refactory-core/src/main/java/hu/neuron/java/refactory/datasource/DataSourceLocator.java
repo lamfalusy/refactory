@@ -6,23 +6,41 @@ import java.sql.SQLException;
 
 public class DataSourceLocator {
 
-	private static Connection conn;
+	//private static DataSource dataSource;
 
-	static {
+	/*static {
 		try {
-			 conn=DriverManager.getConnection("jdbc:hsqldb:mydatabase","SA","");
-			 HSQLUtil.initHSQLDB(conn);
+			Class.forName("org.hsqldb.jdbcDriver");
+			
+			Properties prop = new Properties();
+			prop.setProperty("url", "jdbc:hsqldb:mydatabase");
+			prop.setProperty("user", "SA");
+			prop.setProperty("password", "");
+			dataSource = JDBCDataSourceFactory.createDataSource(prop);
+			try {
+				Class.forName("org.sqlite.JDBC");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			Connection con = DriverManager.getConnection("jdbc:sqlite:test.db");
+			HSQLUtil.initHSQLDB(con);
 		} catch (Throwable t) {
+			t.printStackTrace();
 			System.err.println(t.getMessage());
 		}
-	}
+	}*/
 
 	private DataSourceLocator() {
 
 	}
 
 	public static Connection getConnection() throws SQLException {
-		return conn;
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return DriverManager.getConnection("jdbc:sqlite:test.db");
 	}
 
 }
