@@ -39,12 +39,13 @@ public class CommonFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		// pass the request along the filter chain
-		HttpServletRequest httpReq = (HttpServletRequest) request;
-		if(httpReq.getSession().getAttribute("USER_SESSION_KEY")==null) {
-			UserVO user = new UserVO("horvatha", "Horváth Ádám", "h@h.h", "h", RoleType.USER);
-			
-			httpReq.getSession().setAttribute("USER_SESSION_KEY", user);
-		}
+//		//Zsolti ezt megegyszer fe ne commitold!! :D
+//		HttpServletRequest httpReq = (HttpServletRequest) request;
+//		if(httpReq.getSession().getAttribute("USER_SESSION_KEY")==null) {
+//			UserVO user = new UserVO("horvatha", "Horváth Ádám", "h@h.h", "h", RoleType.USER);
+//			
+//			httpReq.getSession().setAttribute("USER_SESSION_KEY", user);
+//		}
 		
 		chain.doFilter(request, response);
 	}
