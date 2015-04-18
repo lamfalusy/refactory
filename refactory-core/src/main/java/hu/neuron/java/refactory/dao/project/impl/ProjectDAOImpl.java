@@ -106,6 +106,12 @@ public class ProjectDAOImpl extends FakeAbstractDAOBase<Project> implements Proj
 		
 		return ret;
 	}
+
+	@Override
+	public Project findProjectById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
