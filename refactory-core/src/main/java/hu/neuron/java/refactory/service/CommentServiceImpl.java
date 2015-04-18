@@ -2,7 +2,6 @@ package hu.neuron.java.refactory.service;
 
 import hu.neuron.java.refactory.dao.CommentDAOFactory;
 import hu.neuron.java.refactory.dao.comment.impl.CommentDAOImpl;
-import hu.neuron.java.refactory.datasource.FakeDB;
 import hu.neuron.java.refactory.entity.Comment;
 import hu.neuron.java.refactory.entity.Ticket;
 import hu.neuron.java.refactory.vo.CommentVO;
@@ -19,10 +18,13 @@ public class CommentServiceImpl implements CommentService {
 		
 		Comment entity = new Comment();
 		
+		entity.setAdded(comment.getAdded());
+		entity.setComment(comment.getComment());
+		entity.setTicketId(ticketId);
+		entity.setUserId(comment.getUser().getId());
+		
 		try {
 			CommentDAOFactory.getCommentDao().insert(entity);
-			ret = FakeDB.latestId;
-			((Ticket) FakeDB.findById(ticketId)).getComments().add(ret);
 		} catch (SQLException e) {
 
 		}
@@ -32,16 +34,28 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentVO> getCommentsToTicket(Long ticketId) {
-		List<CommentVO> ret = new ArrayList<CommentVO>();
-		for(Long cid : ((Ticket) FakeDB.findById(ticketId)).getComments()){
-			ret.add(CommentDAOImpl.entitiyToVO((Comment) FakeDB.findById(cid)));
+		List<CommentVO> ret = null;
+
+		try {
+			ret = CommentDAOFactory.getCommentDao().findCommentsByTicket(ticketId);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
 		return ret;
 	}
 
 	@Override
 	public CommentVO getCommentFromId(Long commentId) {
-		return CommentDAOImpl.entitiyToVO((Comment) FakeDB.findById(commentId));
+		CommentVO ret = null;
+		
+		try {
+			ret = CommentDAOFactory.getCommentDao().findById(commentId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
 	}
 
 	@Override

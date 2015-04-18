@@ -8,7 +8,8 @@ public class Comment extends BaseEntity {
 
 	private String comment;
 	private Date added;
-	private Long user;
+	private Long userId;
+	private Long ticketId;
 
 	public Comment() {
 	}
@@ -29,12 +30,20 @@ public class Comment extends BaseEntity {
 		this.added = added;
 	}
 
-	public Long getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(Long user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(Long ticketId) {
+		this.ticketId = ticketId;
 	}
 
 }

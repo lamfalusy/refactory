@@ -1,9 +1,11 @@
 package hu.neuron.java.refactory.dao.project.impl;
 
-import hu.neuron.java.refactory.dao.FakeAbstractDAOBase;
+import hu.neuron.java.refactory.dao.AbstractDAOBase;
+import hu.neuron.java.refactory.dao.TicketDAOFactory;
+import hu.neuron.java.refactory.dao.UserDAOFactory;
 import hu.neuron.java.refactory.dao.project.ProjectDAO;
 import hu.neuron.java.refactory.dao.user.impl.UserDAOImpl;
-import hu.neuron.java.refactory.datasource.FakeDB;
+import hu.neuron.java.refactory.datasource.DataSourceLocator;
 import hu.neuron.java.refactory.entity.Project;
 import hu.neuron.java.refactory.entity.Ticket;
 import hu.neuron.java.refactory.entity.User;
@@ -11,12 +13,21 @@ import hu.neuron.java.refactory.vo.ProjectVO;
 import hu.neuron.java.refactory.vo.TicketVO;
 import hu.neuron.java.refactory.vo.UserVO;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDAOImpl extends FakeAbstractDAOBase<Project> implements ProjectDAO{
+public class ProjectDAOImpl extends AbstractDAOBase<Project> implements ProjectDAO{
 	
-	public static ProjectVO entityToVO(Project entity){
+	private static final String INSERT_SQL = "INSERT INTO projects (name, created, description) values(?,?,?);";
+	private static final String DELETE_SQL = "DELETE FROM projects WHERE id = ?";
+	private static final String UPDATE_SQL = "UPDATE projects SET name = ?, created = ?, description = ? WHERE id = ?";
+	
+	public static ProjectVO entityToVO(Project entity) throws SQLException{
 		ProjectVO ret = new ProjectVO();
 		
 		ret.setCreated(entity.getCreated());
@@ -26,33 +37,20 @@ public class ProjectDAOImpl extends FakeAbstractDAOBase<Project> implements Proj
 		
 		ArrayList<UserVO> managers = new ArrayList<UserVO>();
 		for(Long mid : entity.getManagerIds()){
-			managers.add(UserDAOImpl.entityToVO((User) FakeDB.findById(mid)));
+			managers.add(UserDAOFactory.getUserDao().findById(mid));
 		}
 		ret.setManagers(managers);
 		
 		ArrayList<TicketVO> tickets = new ArrayList<TicketVO>();
 		for(Long tid : entity.getTicketIds()){
-			TicketVO ticket = new TicketVO();
-			Ticket tEntity = (Ticket) FakeDB.findById(tid);
-			
-			ticket.setAssignee(UserDAOImpl.entityToVO((User) FakeDB.findById(tEntity.getAssigneeId())));
-			ticket.setCreated(tEntity.getCreated());
-			ticket.setDeadline(tEntity.getDeadline());
-			ticket.setDescription(tEntity.getDescription());
-			ticket.setPriority(tEntity.getPriority());
-			ticket.setProjectId(ret.getId());
-			ticket.setReporter(UserDAOImpl.entityToVO((User) FakeDB.findById(tEntity.getReporterId())));
-			ticket.setStatus(tEntity.getStatus());
-			ticket.setTitle(tEntity.getTitle());
-			ticket.setType(tEntity.getType());
-			
+			TicketVO ticket = TicketDAOFactory.getTicketDao().findById(tid);
 			tickets.add(ticket);
 		}
 		ret.setTickets(tickets);
 
 		ArrayList<UserVO> workers = new ArrayList<UserVO>();
 		for(Long wid : entity.getWorkerIds()){
-			workers.add(UserDAOImpl.entityToVO((User) FakeDB.findById(wid)));
+			workers.add(UserDAOFactory.getUserDao().findById(wid));
 		}
 		ret.setWorkers(workers);
 		
@@ -87,20 +85,131 @@ public class ProjectDAOImpl extends FakeAbstractDAOBase<Project> implements Proj
 		
 		return ret;
 	}
-
+	
+	private final String FIND_ALL_PROJECT = "SELECT * FROM projects;";
+	
 	@Override
-	public List<Project> findAllProject() {
-		ArrayList<Project> ret = new ArrayList<Project>(FakeDB.projects.values());
+	public List<ProjectVO> findAllProject() throws SQLException {
+		ArrayList<ProjectVO> ret = new ArrayList<ProjectVO>();
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = DataSourceLocator.getConnection();
+			preparedStatement = connection.prepareStatement(FIND_ALL_PROJECT);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ProjectVO project = new ProjectVO();
+				project.setId(resultSet.getLong(1));
+				project.setName(resultSet.getString(2));
+				project.setCreated(resultSet.getDate(3));
+				project.setDescription(resultSet.getString(4));
+				ret.add(project);
+			}
+		} finally {
+			try {
+				resultSet.close();
+			} catch (Throwable t) {
+
+			}
+
+			try {
+				preparedStatement.close();
+			} catch (Throwable t) {
+
+			}
+			try {
+				connection.close();
+			} catch (Throwable t) {
+
+			}
+		}
+		
 		return ret;
 	}
-
+	
+	private final String FIND_ALL_PROJECT_BY_WORKER_ID = "SELECT p.* FROM projects p, projects_users_SW pusw WHERE p.id = pusw.project_fk and pusw.user_fk = ?;";
+	
 	@Override
-	public List<Project> findAllProjectByWorkerId(Long id) {
-		ArrayList<Project> ret = new ArrayList<Project>();
+	public List<ProjectVO> findAllProjectByWorkerId(Long id) throws SQLException {
+		ArrayList<ProjectVO> ret = new ArrayList<ProjectVO>();
 		
-		for(Project p : FakeDB.projects.values()){
-			if(p.getWorkerIds().contains(id)){
-				ret.add(p);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = DataSourceLocator.getConnection();
+			preparedStatement = connection.prepareStatement(FIND_ALL_PROJECT_BY_WORKER_ID);
+			preparedStatement.setLong(1, id);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ProjectVO project = new ProjectVO();
+				project.setId(resultSet.getLong(1));
+				project.setName(resultSet.getString(2));
+				project.setCreated(resultSet.getDate(3));
+				project.setDescription(resultSet.getString(4));
+				ret.add(project);
+			}
+		} finally {
+			try {
+				resultSet.close();
+			} catch (Throwable t) {
+
+			}
+
+			try {
+				preparedStatement.close();
+			} catch (Throwable t) {
+
+			}
+			try {
+				connection.close();
+			} catch (Throwable t) {
+
+			}
+		}
+		
+		return ret;
+	}
+	
+	private final String FIND_BY_ID = "SELECT p.* FROM projects p, projects_users_SW pusw WHERE p.id = pusw.project_fk and pusw.user_fk = ?;";
+	
+	@Override
+	public ProjectVO findById(Long id) throws SQLException {
+		ProjectVO ret = null;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = DataSourceLocator.getConnection();
+			preparedStatement = connection.prepareStatement(FIND_BY_ID);
+			preparedStatement.setLong(1, id);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ret = new ProjectVO();
+				ret.setId(resultSet.getLong(1));
+				ret.setName(resultSet.getString(2));
+				ret.setCreated(resultSet.getDate(3));
+				ret.setDescription(resultSet.getString(4));
+			}
+		} finally {
+			try {
+				resultSet.close();
+			} catch (Throwable t) {
+
+			}
+
+			try {
+				preparedStatement.close();
+			} catch (Throwable t) {
+
+			}
+			try {
+				connection.close();
+			} catch (Throwable t) {
+
 			}
 		}
 		
@@ -111,6 +220,35 @@ public class ProjectDAOImpl extends FakeAbstractDAOBase<Project> implements Proj
 	public Project findProjectById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	protected PreparedStatement getInsertStatement(Connection connection,
+			Project entity) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(INSERT_SQL);
+		statement.setString(1, entity.getName());
+		statement.setDate(2, new Date(entity.getCreated().getTime()));
+		statement.setString(3, entity.getDescription());
+		return statement;
+	}
+
+	@Override
+	protected PreparedStatement getDeleteStatement(Connection connection,
+			Long id) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(DELETE_SQL);
+		statement.setLong(1, id);
+		return statement;
+	}
+
+	@Override
+	protected PreparedStatement getUpdateStatement(Connection connection,
+			Project entity) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(UPDATE_SQL);
+		statement.setString(1, entity.getName());
+		statement.setDate(2, new Date(entity.getCreated().getTime()));
+		statement.setString(3, entity.getDescription());
+		statement.setLong(4, entity.getId());
+		return statement;
 	}
 	
 

@@ -1,10 +1,6 @@
 package hu.neuron.java.refactory.service;
 
-import hu.neuron.java.refactory.dao.ProjectDAOFactory;
 import hu.neuron.java.refactory.dao.TicketDAOFactory;
-import hu.neuron.java.refactory.dao.ticket.impl.TicketDAOImpl;
-import hu.neuron.java.refactory.datasource.FakeDB;
-import hu.neuron.java.refactory.entity.Project;
 import hu.neuron.java.refactory.entity.Ticket;
 import hu.neuron.java.refactory.vo.TicketVO;
 
@@ -33,14 +29,14 @@ public class TicketServiceImpl implements TicketService {
 		try {
 			TicketDAOFactory.getTicketDao().insert(entity);
 		} catch (SQLException e) {
-		
+			e.printStackTrace();
 		}
-		return FakeDB.latestId;
+		return null;
 	}
 
 	@Override
 	public void modifyTicket(TicketVO ticket) {
-		Ticket entity = (Ticket) FakeDB.findById(ticket.getId());
+		Ticket entity = new Ticket();
 		
 		entity.setAssignee(ticket.getAssignee().getId());
 		entity.setCreated(ticket.getCreated());
@@ -54,29 +50,31 @@ public class TicketServiceImpl implements TicketService {
 		entity.setType(ticket.getType());
 		
 		try {
-			TicketDAOFactory.getTicketDao().insert(entity);
+			TicketDAOFactory.getTicketDao().update(entity);
 		} catch (SQLException e) {
 		
 		}
 	}
 
 	@Override
-	public TicketVO getTicketById(Long id) {
-		Ticket entity = (Ticket) FakeDB.findById(id);
-		TicketVO ret = TicketDAOImpl.entityToVO(entity);		
+	public TicketVO getTicketById(Long id) {		
+		TicketVO ret = null;
+		try {
+			ret = TicketDAOFactory.getTicketDao().findById(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return ret;
 	}
 
 	@Override
 	public List<TicketVO> findAllTicketsByUserId(Long id) {
-		ArrayList<TicketVO> ret = new ArrayList<TicketVO>();
+		List<TicketVO> ret = null;
 		
-		List<Project> projects = ProjectDAOFactory.getProjectDao().findAllProjectByWorkerId(id);
-		
-		for(Project p : projects){
-			for(Long tid : p.getTicketIds()){
-				ret.add(TicketDAOImpl.entityToVO((Ticket) FakeDB.findById(tid)));
-			}
+		try {
+			ret = TicketDAOFactory.getTicketDao().findAllAvaibleTicketsByUserId(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return ret;

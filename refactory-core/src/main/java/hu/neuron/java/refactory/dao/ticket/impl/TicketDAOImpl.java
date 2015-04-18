@@ -1,35 +1,45 @@
 package hu.neuron.java.refactory.dao.ticket.impl;
 
+import hu.neuron.java.refactory.dao.AbstractDAOBase;
+import hu.neuron.java.refactory.dao.CommentDAOFactory;
+import hu.neuron.java.refactory.dao.ProjectDAOFactory;
+import hu.neuron.java.refactory.dao.UserDAOFactory;
+import hu.neuron.java.refactory.dao.ticket.TicketDAO;
+import hu.neuron.java.refactory.datasource.DataSourceLocator;
+import hu.neuron.java.refactory.entity.Ticket;
+import hu.neuron.java.refactory.type.PriorityType;
+import hu.neuron.java.refactory.type.StatusType;
+import hu.neuron.java.refactory.type.TicketType;
+import hu.neuron.java.refactory.vo.CommentVO;
+import hu.neuron.java.refactory.vo.ProjectVO;
+import hu.neuron.java.refactory.vo.TicketVO;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.neuron.java.refactory.dao.FakeAbstractDAOBase;
-import hu.neuron.java.refactory.dao.comment.impl.CommentDAOImpl;
-import hu.neuron.java.refactory.dao.project.impl.ProjectDAOImpl;
-import hu.neuron.java.refactory.dao.ticket.TicketDAO;
-import hu.neuron.java.refactory.dao.user.impl.UserDAOImpl;
-import hu.neuron.java.refactory.datasource.FakeDB;
-import hu.neuron.java.refactory.entity.Comment;
-import hu.neuron.java.refactory.entity.Project;
-import hu.neuron.java.refactory.entity.Ticket;
-import hu.neuron.java.refactory.entity.User;
-import hu.neuron.java.refactory.vo.CommentVO;
-import hu.neuron.java.refactory.vo.TicketVO;
+public class TicketDAOImpl extends AbstractDAOBase<Ticket> implements TicketDAO{
 
-public class TicketDAOImpl extends FakeAbstractDAOBase<Ticket> implements TicketDAO{
-
-	public static TicketVO entityToVO(Ticket entity){
+	private static final String INSERT_SQL = "INSERT INTO tickets (project_fk, title, type, status, priority, reporter_fk, assignee_fk, created, deadline, description) values(?,?,?,?,?,?,?,?,?,?);";
+	private static final String DELETE_SQL = "DELETE FROM tickets WHERE id = ?";
+	private static final String UPDATE_SQL = "UPDATE tickets SET project_fk = ?, title = ?, type = ?, status = ?, priority = ?, reporter_fk = ?, assignee_fk = ?, created = ?, deadline = ?, description = ? WHERE id = ?";
+	
+	public static TicketVO entityToVO(Ticket entity) throws SQLException{
 		TicketVO ret = new TicketVO();
 		
 		ret.setId(entity.getId());
-		ret.setAssignee(UserDAOImpl.entityToVO((User) FakeDB.findById(entity.getAssigneeId())));
+		ret.setAssignee(UserDAOFactory.getUserDao().findById(entity.getAssigneeId()));
 		ret.setCreated(entity.getCreated());
 		ret.setDeadline(entity.getDeadline());
 		ret.setDescription(entity.getDescription());
 		ret.setPriority(entity.getPriority());
 		ret.setProjectId(entity.getProjectId());
-		ret.setProjectName(ProjectDAOImpl.entityToVO((Project) FakeDB.findById(entity.getProjectId())).getName());
-		ret.setReporter(UserDAOImpl.entityToVO((User) FakeDB.findById(entity.getReporterId())));
+		ret.setProjectName(ProjectDAOFactory.getProjectDao().findById(entity.getProjectId()).getName());
+		ret.setReporter(UserDAOFactory.getUserDao().findById(entity.getReporterId()));
 		ret.setStatus(entity.getStatus());
 		ret.setTitle(entity.getTitle());
 		ret.setType(entity.getType());
@@ -37,11 +47,10 @@ public class TicketDAOImpl extends FakeAbstractDAOBase<Ticket> implements Ticket
 		if (entity.getComments() != null && !entity.getComments().isEmpty()) {
 			List<CommentVO> comments = new ArrayList<CommentVO>();
 			for (Long commentId: entity.getComments()) {
-				comments.add(CommentDAOImpl.entitiyToVO((Comment) FakeDB.findById(commentId)));
+				comments.add(CommentDAOFactory.getCommentDao().findById(commentId));
 			}
-			ret.setComments(comments); 
-		}
-		
+			ret.setComments(comments);
+		}		
 		
 		return ret;
 	}
@@ -61,6 +70,153 @@ public class TicketDAOImpl extends FakeAbstractDAOBase<Ticket> implements Ticket
 		ret.setType(vo.getType());
 		
 		return ret;
+	}
+	
+	private final String FIND_BY_ID = "SELECT * FROM tickets WHERE id = ?;";
+	
+	@Override
+	public TicketVO findById(Long id) throws SQLException {
+		TicketVO ret = null;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = DataSourceLocator.getConnection();
+			preparedStatement = connection.prepareStatement(FIND_BY_ID);
+			preparedStatement.setLong(1, id);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ret = new TicketVO();
+				ret.setId(resultSet.getLong(1));
+				ProjectVO project = ProjectDAOFactory.getProjectDao().findById(resultSet.getLong(2));
+				ret.setProjectId(project.getId());
+				ret.setProjectName(project.getName());
+				ret.setTitle(resultSet.getString(3));
+				ret.setType(TicketType.valueOf(resultSet.getString(4)));
+				ret.setStatus(StatusType.valueOf(resultSet.getString(5)));
+				ret.setPriority(PriorityType.valueOf(resultSet.getString(6)));
+				ret.setReporter(UserDAOFactory.getUserDao().findById(resultSet.getLong(7)));
+				ret.setAssignee(UserDAOFactory.getUserDao().findById(resultSet.getLong(8)));
+				ret.setDeadline(resultSet.getDate(9));
+				ret.setDescription(resultSet.getString(10));
+			}
+		} finally {
+			try {
+				resultSet.close();
+			} catch (Throwable t) {
+
+			}
+
+			try {
+				preparedStatement.close();
+			} catch (Throwable t) {
+
+			}
+			try {
+				connection.close();
+			} catch (Throwable t) {
+
+			}
+		}
+		
+		return ret;
+	}
+	
+	private final String FIND_ALL_AVAIBLE_TICKET_BY_USER_ID = "SELECT t.* FROM tickets t, projects_users_SW pusw WHERE pusw.user_fk = ? AND t.project_fk = pusw.project_fk;";
+	
+	@Override
+	public List<TicketVO> findAllAvaibleTicketsByUserId(Long userId)
+			throws SQLException {
+		ArrayList<TicketVO> ret = new ArrayList<TicketVO>();
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = DataSourceLocator.getConnection();
+			preparedStatement = connection.prepareStatement(FIND_ALL_AVAIBLE_TICKET_BY_USER_ID);
+			preparedStatement.setLong(1, userId);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				TicketVO ticket = new TicketVO();
+				ticket.setId(resultSet.getLong(1));
+				ProjectVO project = ProjectDAOFactory.getProjectDao().findById(resultSet.getLong(2));
+				ticket.setProjectId(project.getId());
+				ticket.setProjectName(project.getName());
+				ticket.setTitle(resultSet.getString(3));
+				ticket.setType(TicketType.valueOf(resultSet.getString(4).toUpperCase()));
+				ticket.setStatus(StatusType.valueOf(resultSet.getString(5).toUpperCase()));
+				ticket.setPriority(PriorityType.valueOf(resultSet.getString(6).toUpperCase()));
+				ticket.setReporter(UserDAOFactory.getUserDao().findById(resultSet.getLong(7)));
+				ticket.setAssignee(UserDAOFactory.getUserDao().findById(resultSet.getLong(8)));
+				ticket.setDeadline(resultSet.getDate(9));
+				ticket.setDescription(resultSet.getString(10));
+				ret.add(ticket);
+			}
+		} finally {
+			try {
+				resultSet.close();
+			} catch (Throwable t) {
+
+			}
+
+			try {
+				preparedStatement.close();
+			} catch (Throwable t) {
+
+			}
+			try {
+				connection.close();
+			} catch (Throwable t) {
+
+			}
+		}
+		
+		return ret;
+	}
+	
+	@Override
+	protected PreparedStatement getInsertStatement(Connection connection,
+			Ticket entity) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(INSERT_SQL);
+		statement.setLong(1, entity.getProjectId());
+		statement.setString(2, entity.getTitle());
+		statement.setString(3, entity.getType().name());
+		statement.setString(4, entity.getStatus().name());
+		statement.setString(5, entity.getPriority().name());
+		statement.setLong(6, entity.getReporterId());
+		statement.setLong(7, entity.getAssigneeId());
+		statement.setDate(8, new Date(entity.getCreated().getTime()));
+		statement.setDate(9, new Date(entity.getDeadline().getTime()));
+		statement.setString(10, entity.getDescription());
+		return statement;
+	}
+
+	@Override
+	protected PreparedStatement getDeleteStatement(Connection connection,
+			Long id) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(DELETE_SQL);
+		statement.setLong(1, id);
+		return statement;
+	}
+
+	@Override
+	protected PreparedStatement getUpdateStatement(Connection connection,
+			Ticket entity) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(UPDATE_SQL);
+		statement.setLong(1, entity.getProjectId());
+		statement.setString(2, entity.getTitle());
+		statement.setString(3, entity.getType().name());
+		statement.setString(4, entity.getStatus().name());
+		statement.setString(5, entity.getPriority().name());
+		statement.setLong(6, entity.getReporterId());
+		statement.setLong(7, entity.getAssigneeId());
+		statement.setDate(8, new Date(entity.getCreated().getTime()));
+		statement.setDate(9, new Date(entity.getDeadline().getTime()));
+		statement.setString(10, entity.getDescription());
+		statement.setLong(11, entity.getId());
+		return statement;
 	}
 	
 }

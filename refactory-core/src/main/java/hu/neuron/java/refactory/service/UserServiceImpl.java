@@ -1,14 +1,10 @@
 package hu.neuron.java.refactory.service;
 
 import hu.neuron.java.refactory.dao.UserDAOFactory;
-import hu.neuron.java.refactory.dao.user.impl.UserDAOImpl;
-import hu.neuron.java.refactory.datasource.DataSourceLocator;
-import hu.neuron.java.refactory.datasource.FakeDB;
 import hu.neuron.java.refactory.entity.User;
 import hu.neuron.java.refactory.vo.UserVO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -28,24 +24,27 @@ public class UserServiceImpl implements UserService {
 		} catch (SQLException e) {
 		
 		}
-		return FakeDB.latestId;
+		return null;
 	}
 
 	@Override
 	public void modifyUser(UserVO user) {
-		User entity = (User) FakeDB.findById(user.getId());
+		User entity = new User();
 		
-		entity.setId(user.getId());
-		entity.setEmail(user.getEmail());
-		entity.setFullName(user.getFullName());
-		entity.setLoginName(user.getLoginName());
-		entity.setRole(user.getRole());
+		try {			
+			entity.setId(user.getId());
+			entity.setEmail(user.getEmail());
+			entity.setFullName(user.getFullName());
+			entity.setLoginName(user.getLoginName());
+			entity.setRole(user.getRole());
+			
+			if(user.getPassword() != null){
+				entity.setPassword(user.getPassword());
+			} else {
+				UserVO u = UserDAOFactory.getUserDao().findById(user.getId());
+				entity.setPassword(u.getPassword());
+			}		
 		
-		if(user.getPassword() != null){
-			entity.setPassword(user.getPassword());
-		}
-		
-		try {
 			UserDAOFactory.getUserDao().update(entity);
 		} catch (SQLException e) {
 		
@@ -56,11 +55,10 @@ public class UserServiceImpl implements UserService {
 	public UserVO validateUser(String loginName, String password) {
 		UserVO ret = null;
 		
-		for(User u : UserDAOFactory.getUserDao().getAllUser()){
-			if(u.getLoginName().equals(loginName) && u.getPassword().equals(password)){
-				ret = UserDAOImpl.entityToVO(u);
-				break;
-			}
+		try {
+			ret = UserDAOFactory.getUserDao().validateUser(loginName, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return ret;
@@ -70,31 +68,23 @@ public class UserServiceImpl implements UserService {
 	public UserVO getUserByLoginName(String loginName) {
 		UserVO ret = null;
 		
-		for(User u : UserDAOFactory.getUserDao().getAllUser()){
-			if(u.getLoginName().equals(loginName)){
-				ret = UserDAOImpl.entityToVO(u);
-				break;
-			}
+		try {
+			ret = UserDAOFactory.getUserDao().findByLonginName(loginName);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return ret;
 	}
 
 	@Override
-	public List<UserVO> getAllUser() {
+	public List<UserVO> getAllUser() {		
+		List<UserVO> ret = null;
 		
-		System.out.println("kezdodik");
 		try {
-			DataSourceLocator.getConnection();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		ArrayList<UserVO> ret = new ArrayList<UserVO>();
-		
-		for(User u : UserDAOFactory.getUserDao().getAllUser()){
-			ret.add(UserDAOImpl.entityToVO(u));
+			ret = UserDAOFactory.getUserDao().getAllUser();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return ret;
