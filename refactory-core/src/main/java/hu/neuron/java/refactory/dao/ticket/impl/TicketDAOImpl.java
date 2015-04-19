@@ -6,6 +6,7 @@ import hu.neuron.java.refactory.dao.ProjectDAOFactory;
 import hu.neuron.java.refactory.dao.UserDAOFactory;
 import hu.neuron.java.refactory.dao.ticket.TicketDAO;
 import hu.neuron.java.refactory.datasource.DataSourceLocator;
+import hu.neuron.java.refactory.datasource.SQLUtil;
 import hu.neuron.java.refactory.entity.Ticket;
 import hu.neuron.java.refactory.type.PriorityType;
 import hu.neuron.java.refactory.type.StatusType;
@@ -58,7 +59,7 @@ public class TicketDAOImpl extends AbstractDAOBase<Ticket> implements TicketDAO{
 	public static Ticket voToEntity(TicketVO vo){
 		Ticket ret = new Ticket();
 		
-		ret.setAssignee(vo.getAssignee().getId());
+		ret.setAssigneeId(vo.getAssignee().getId());
 		ret.setCreated(vo.getCreated());
 		ret.setDeadline(vo.getDeadline());
 		ret.setDescription(vo.getDescription());
@@ -69,6 +70,30 @@ public class TicketDAOImpl extends AbstractDAOBase<Ticket> implements TicketDAO{
 		ret.setTitle(vo.getTitle());
 		ret.setType(vo.getType());
 		
+		return ret;
+	}
+	
+	private final String FIND_TICKETS = "select * from tickets;";
+	
+	@Override
+	public List<TicketVO> findAllTickets() throws SQLException {
+		
+		List<TicketVO> ret = new ArrayList<TicketVO>();
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = DataSourceLocator.getConnection();
+			preparedStatement = connection.prepareStatement(FIND_TICKETS);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				TicketVO ticket = buildTicket(resultSet);
+				ret.add(ticket);
+			}
+		} finally {
+			SQLUtil.closeConnection(connection, preparedStatement, resultSet);
+		}
 		return ret;
 	}
 	
@@ -87,37 +112,10 @@ public class TicketDAOImpl extends AbstractDAOBase<Ticket> implements TicketDAO{
 			preparedStatement.setLong(1, id);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				ret = new TicketVO();
-				ret.setId(resultSet.getLong(1));
-				ProjectVO project = ProjectDAOFactory.getProjectDao().findById(resultSet.getLong(2));
-				ret.setProjectId(project.getId());
-				ret.setProjectName(project.getName());
-				ret.setTitle(resultSet.getString(3));
-				ret.setType(TicketType.valueOf(resultSet.getString(4)));
-				ret.setStatus(StatusType.valueOf(resultSet.getString(5)));
-				ret.setPriority(PriorityType.valueOf(resultSet.getString(6)));
-				ret.setReporter(UserDAOFactory.getUserDao().findById(resultSet.getLong(7)));
-				ret.setAssignee(UserDAOFactory.getUserDao().findById(resultSet.getLong(8)));
-				ret.setDeadline(resultSet.getDate(9));
-				ret.setDescription(resultSet.getString(10));
+				ret = buildTicket(resultSet);
 			}
 		} finally {
-			try {
-				resultSet.close();
-			} catch (Throwable t) {
-
-			}
-
-			try {
-				preparedStatement.close();
-			} catch (Throwable t) {
-
-			}
-			try {
-				connection.close();
-			} catch (Throwable t) {
-
-			}
+			SQLUtil.closeConnection(connection, preparedStatement, resultSet);
 		}
 		
 		return ret;
@@ -139,41 +137,32 @@ public class TicketDAOImpl extends AbstractDAOBase<Ticket> implements TicketDAO{
 			preparedStatement.setLong(1, userId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				TicketVO ticket = new TicketVO();
-				ticket.setId(resultSet.getLong(1));
-				ProjectVO project = ProjectDAOFactory.getProjectDao().findById(resultSet.getLong(2));
-				ticket.setProjectId(project.getId());
-				ticket.setProjectName(project.getName());
-				ticket.setTitle(resultSet.getString(3));
-				ticket.setType(TicketType.valueOf(resultSet.getString(4).toUpperCase()));
-				ticket.setStatus(StatusType.valueOf(resultSet.getString(5).toUpperCase()));
-				ticket.setPriority(PriorityType.valueOf(resultSet.getString(6).toUpperCase()));
-				ticket.setReporter(UserDAOFactory.getUserDao().findById(resultSet.getLong(7)));
-				ticket.setAssignee(UserDAOFactory.getUserDao().findById(resultSet.getLong(8)));
-				ticket.setDeadline(resultSet.getDate(9));
-				ticket.setDescription(resultSet.getString(10));
+				TicketVO ticket = buildTicket(resultSet);
 				ret.add(ticket);
 			}
 		} finally {
-			try {
-				resultSet.close();
-			} catch (Throwable t) {
-
-			}
-
-			try {
-				preparedStatement.close();
-			} catch (Throwable t) {
-
-			}
-			try {
-				connection.close();
-			} catch (Throwable t) {
-
-			}
+			SQLUtil.closeConnection(connection, preparedStatement, resultSet);
 		}
 		
 		return ret;
+	}
+	
+	private TicketVO buildTicket(ResultSet rs) throws SQLException {
+		TicketVO ticket = new TicketVO();
+		ticket.setId(rs.getLong(1));
+		ProjectVO project = ProjectDAOFactory.getProjectDao().findById(rs.getLong(2));
+		ticket.setProjectId(project.getId());
+		ticket.setProjectName(project.getName());
+		ticket.setTitle(rs.getString(3));
+		ticket.setType(TicketType.valueOf(rs.getString(4).toUpperCase()));
+		ticket.setStatus(StatusType.valueOf(rs.getString(5).toUpperCase()));
+		ticket.setPriority(PriorityType.valueOf(rs.getString(6).toUpperCase()));
+		ticket.setReporter(UserDAOFactory.getUserDao().findById(rs.getLong(7)));
+		ticket.setAssignee(UserDAOFactory.getUserDao().findById(rs.getLong(8)));
+		ticket.setCreated(rs.getDate(9));
+		ticket.setDeadline(rs.getDate(10));
+		ticket.setDescription(rs.getString(11));
+		return ticket;
 	}
 	
 	@Override
@@ -218,5 +207,4 @@ public class TicketDAOImpl extends AbstractDAOBase<Ticket> implements TicketDAO{
 		statement.setLong(11, entity.getId());
 		return statement;
 	}
-	
 }

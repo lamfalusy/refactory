@@ -13,7 +13,9 @@ public interface UserDAO extends DAOBase<User> {
 
 	UserVO findById(Long id) throws SQLException;
 
-	UserVO findByLonginName(String loginName) throws SQLException;
+	UserVO findByLoginName(String loginName) throws SQLException;
+	
+	UserVO findByName(String loginName) throws SQLException;
 	
 	UserVO validateUser(String loginName, String password) throws SQLException;
 	

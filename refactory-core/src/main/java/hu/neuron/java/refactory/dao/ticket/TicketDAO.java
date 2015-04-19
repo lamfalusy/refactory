@@ -10,6 +10,8 @@ import hu.neuron.java.refactory.vo.TicketVO;
 
 public interface TicketDAO extends DAOBase<Ticket> {
 
+	List<TicketVO> findAllTickets() throws SQLException;
+	
 	TicketVO findById(Long id) throws SQLException;
 	
 	List<TicketVO> findAllAvaibleTicketsByUserId(Long userId) throws SQLException;

@@ -4,11 +4,8 @@ import hu.neuron.java.refactory.dao.AbstractDAOBase;
 import hu.neuron.java.refactory.dao.TicketDAOFactory;
 import hu.neuron.java.refactory.dao.UserDAOFactory;
 import hu.neuron.java.refactory.dao.project.ProjectDAO;
-import hu.neuron.java.refactory.dao.user.impl.UserDAOImpl;
 import hu.neuron.java.refactory.datasource.DataSourceLocator;
 import hu.neuron.java.refactory.entity.Project;
-import hu.neuron.java.refactory.entity.Ticket;
-import hu.neuron.java.refactory.entity.User;
 import hu.neuron.java.refactory.vo.ProjectVO;
 import hu.neuron.java.refactory.vo.TicketVO;
 import hu.neuron.java.refactory.vo.UserVO;
@@ -173,7 +170,8 @@ public class ProjectDAOImpl extends AbstractDAOBase<Project> implements ProjectD
 		return ret;
 	}
 	
-	private final String FIND_BY_ID = "SELECT p.* FROM projects p, projects_users_SW pusw WHERE p.id = pusw.project_fk and pusw.user_fk = ?;";
+	/*private final String FIND_BY_ID = "SELECT p.* FROM projects p, projects_users_SW pusw WHERE p.id = pusw.project_fk and pusw.user_fk = ?;";*/
+	private final String FIND_BY_ID = "SELECT * FROM projects WHERE id = ?;";
 	
 	@Override
 	public ProjectVO findById(Long id) throws SQLException {

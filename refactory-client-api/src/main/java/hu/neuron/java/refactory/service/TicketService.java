@@ -12,6 +12,8 @@ public interface TicketService {
 	
 	TicketVO getTicketById(Long id);
 	
+	List<TicketVO> findAllTickets();
+	
 	List<TicketVO> findAllTicketsByUserId(Long id);
 	
 	void deleteTicket(Long id);

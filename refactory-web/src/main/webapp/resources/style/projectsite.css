@@ -11,3 +11,14 @@
 #project-table-wrapper {
 	width: 420px;
 }
+
+div.dataTables_wrapper {
+	width: 415px;
+}
+
+.form-editor-content-narrow-second {
+	margin-left: 15px;
+	width: 310px;
+	float: left;
+}
+}

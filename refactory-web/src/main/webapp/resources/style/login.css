@@ -123,3 +123,13 @@ h1 {
 button {
 	margin: 10px;
 }
+
+input.checkbox {
+	width: inherit;
+ 	margin-right: 15px;
+}
+
+input.checkbox:hover, input.checkbox:focus {
+	box-shadow: none;
+	cursor: pointer;
+}

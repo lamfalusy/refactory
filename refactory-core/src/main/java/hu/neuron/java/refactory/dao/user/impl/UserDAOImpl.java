@@ -3,6 +3,7 @@ package hu.neuron.java.refactory.dao.user.impl;
 import hu.neuron.java.refactory.dao.AbstractDAOBase;
 import hu.neuron.java.refactory.dao.user.UserDAO;
 import hu.neuron.java.refactory.datasource.DataSourceLocator;
+import hu.neuron.java.refactory.datasource.SQLUtil;
 import hu.neuron.java.refactory.entity.User;
 import hu.neuron.java.refactory.type.RoleType;
 import hu.neuron.java.refactory.vo.UserVO;
@@ -135,7 +136,7 @@ public class UserDAOImpl extends AbstractDAOBase<User> implements UserDAO{
 	private final String FIND_BY_LOGIN_NAME_ID = "SELECT * FROM users WHERE login_name = ?;";
 	
 	@Override
-	public UserVO findByLonginName(String loginName) throws SQLException {
+	public UserVO findByLoginName(String loginName) throws SQLException {
 		UserVO ret = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -219,6 +220,33 @@ public class UserDAOImpl extends AbstractDAOBase<User> implements UserDAO{
 		return ret;
 	}
 	
+private final String FIND_BY_NAME = "SELECT * FROM users WHERE full_name = ?;";
+	
+	@Override
+	public UserVO findByName(String fullName) throws SQLException {
+		UserVO ret = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = DataSourceLocator.getConnection();
+			preparedStatement = connection.prepareStatement(FIND_BY_NAME);
+			preparedStatement.setString(1, fullName);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ret = new UserVO();
+				ret.setId(resultSet.getLong(1));
+				ret.setLoginName(resultSet.getString(2));
+				ret.setFullName(resultSet.getString(3));
+				ret.setEmail(resultSet.getString(4));
+				ret.setRole(RoleType.valueOf(resultSet.getString(6).toUpperCase()));
+			}
+		} finally {
+			SQLUtil.closeConnection(connection, preparedStatement, resultSet);
+		}
+		return ret;
+	}
+	
 	@Override
 	protected PreparedStatement getInsertStatement(Connection connection,
 			User entity) throws SQLException {
@@ -250,5 +278,4 @@ public class UserDAOImpl extends AbstractDAOBase<User> implements UserDAO{
 		statement.setLong(5, entity.getId());
 		return statement;
 	}
-	
 }

@@ -78,7 +78,7 @@ public class Ticket extends BaseEntity {
 		return assigneeId;
 	}
 
-	public void setAssignee(Long assigneeId) {
+	public void setAssigneeId(Long assigneeId) {
 		this.assigneeId = assigneeId;
 	}
 

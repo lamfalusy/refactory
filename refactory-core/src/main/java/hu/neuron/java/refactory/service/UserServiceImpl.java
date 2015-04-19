@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 		UserVO ret = null;
 		
 		try {
-			ret = UserDAOFactory.getUserDao().findByLonginName(loginName);
+			ret = UserDAOFactory.getUserDao().findByLoginName(loginName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,12 +93,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO getUserByFullName(String fullName) {
 		UserVO user = null;
-		for(User u : UserDAOFactory.getUserDao().getAllUser()){
-			if(u.getFullName().equals(fullName)){
-				user = UserDAOImpl.entityToVO(u);
-				break;
-			}
+		try {
+			user = UserDAOFactory.getUserDao().findByName(fullName);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
 		return user;
 	
 	}

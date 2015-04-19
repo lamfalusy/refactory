@@ -54,11 +54,10 @@ public class ReadTicketServlet extends HttpServlet {
 
 			gson.toJson(ticket, response.getWriter());
 		} else {
-			ArrayList<TicketVO> tickets = (ArrayList<TicketVO>) ServiceLocator.getTicketService().findAllTicketsByUserId(SessionUtil.getUserFromSession(request).getId());
+			ArrayList<TicketVO> tickets = (ArrayList<TicketVO>) ServiceLocator.getTicketService().findAllTickets();
 
 			ResponseWrapper<TicketVO> rw = new ResponseWrapper<TicketVO>(tickets);
 			response.setCharacterEncoding("UTF-8");
-
 			gson.toJson(rw, response.getWriter());
 		}
 	}
