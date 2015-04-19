@@ -69,6 +69,8 @@
 					<li><a href="#">Instagram</a></li>
 					<li><a href="#"></a></li>
 				</ul></li>
+				
+			<li><a id="logout" href="LogoutServlet" class="">Logout</a></li>
 		</ul>
 	</div>
 </nav>
