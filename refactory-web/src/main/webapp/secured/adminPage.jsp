@@ -53,7 +53,6 @@ div#users-contain table td, div#users-contain table th {
 	padding: 0.3em;
 }
 </style>-->
-<script src="../resources/js/adminPage.js"></script>
 
 <script>
 	$('#admin-site').addClass('active');

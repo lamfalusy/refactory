@@ -5,7 +5,6 @@
 <script>
 	$('#project-site').addClass('active');
 </script>
-<script src="../resources/js/project.js"></script>
 
 <div class="page-content">
 	<div class="project-table-container">

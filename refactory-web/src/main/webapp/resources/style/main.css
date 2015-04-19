@@ -82,3 +82,33 @@ hr.faded {
 .marginTop20 {
 	margin-top: 20px !important;
 }
+
+/* Growl */
+.growl {
+	color: #FFF;
+	background-position: 10px center;
+}
+
+.growl.growl-default {
+	background: #138687 url(../images/info.png) no-repeat 10px center;
+}
+
+.growl.growl-warning {
+	background: #F39C12 url(../images/warning.png) no-repeat 10px center;
+}
+
+.growl.growl-error {
+	background: #C0392B url(../images/error.png) no-repeat 10px center;
+}
+
+.growl .growl-title {
+	font-size: 18px;
+	line-height: 24px;
+	margin-left: 40px;
+}
+
+.growl .growl-message {
+	font-size: 14px;
+	line-height: 18px;
+	margin-left: 40px;
+}

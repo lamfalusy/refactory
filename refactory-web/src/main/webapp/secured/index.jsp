@@ -40,20 +40,26 @@
 		</div>
 		<hr class="faded" />
 		<div class="form-editor-content">
-			<div class="form-editor-content-descriptor-narrow ticket-editor-content-descriptor content-panel">
-				<fieldset class="ticket-editor-details-fieldset fieldset-input-fixed-height">
+			<div
+				class="form-editor-content-descriptor-narrow ticket-editor-content-descriptor content-panel">
+				<fieldset
+					class="ticket-editor-details-fieldset fieldset-input-fixed-height">
 					<legend>Details</legend>
 					<div>
-						<span class="attribute-name">Title:</span> <input id="ticket-editor-input-title" type="text">
+						<span class="attribute-name">Title:</span> <input
+							id="ticket-editor-input-title" type="text">
 					</div>
 					<div>
-						<span class="attribute-name">ID:</span> <span id="ticket-editor-id" class="ticket-editor-value-field"></span>
+						<span class="attribute-name">ID:</span> <span
+							id="ticket-editor-id" class="ticket-editor-value-field"></span>
 					</div>
 					<div>
-						<span class="attribute-name">Project:</span> <input id="ticket-editor-input-project" type="text">
+						<span class="attribute-name">Project:</span> <input
+							id="ticket-editor-input-project" type="text">
 					</div>
 					<div>
-						<span class="attribute-name">Type:</span> <select name="type" id="ticket-editor-select-type" class="select-menu">
+						<span class="attribute-name">Type:</span> <select name="type"
+							id="ticket-editor-select-type" class="select-menu">
 							<option selected="selected">Bug</option>
 							<option>Task</option>
 							<option>New Feature</option>
@@ -62,7 +68,8 @@
 						</select>
 					</div>
 					<div>
-						<span class="attribute-name">Priority:</span> <select name="priority" id="ticket-editor-select-priority"
+						<span class="attribute-name">Priority:</span> <select
+							name="priority" id="ticket-editor-select-priority"
 							class="select-menu">
 							<option selected="selected">Trivial</option>
 							<option>Minor</option>
@@ -72,8 +79,8 @@
 						</select>
 					</div>
 					<div>
-						<span class="attribute-name">Status:</span> <select name="status" id="ticket-editor-select-status"
-							class="select-menu">
+						<span class="attribute-name">Status:</span> <select name="status"
+							id="ticket-editor-select-status" class="select-menu">
 							<option selected="selected">None</option>
 							<option>Need Info</option>
 							<option>In Progress</option>
@@ -92,7 +99,8 @@
 					<legend>Comments</legend>
 					<div>
 						<textarea rows="2" id="ticket-editor-textarea-comment"></textarea>
-						<button id="add-comment-button" disabled="true">Add Comment</button>
+						<button id="add-comment-button" disabled="true">Add
+							Comment</button>
 
 						<div class="clear"></div>
 
@@ -112,26 +120,30 @@
 					</div>
 				</fieldset>
 			</div>
-			<div class="form-editor-content-narrow-second">
-				<fieldset class="ticket-editor-people-fieldset fieldset-input-fixed-height">
+			<div class="form-editor-content-descriptor-narrow-second">
+				<fieldset
+					class="ticket-editor-people-fieldset fieldset-input-fixed-height">
 					<legend>People</legend>
 					<div>
-						<span class="attribute-name">Reporter:</span> <span id="ticket-editor-input-reporter"
+						<span class="attribute-name">Reporter:</span> <span
+							id="ticket-editor-input-reporter"
 							class="form-editor-fixed-value-field"></span>
 					</div>
 					<div>
-						<span class="attribute-name">Assignee:</span> <input id="ticket-editor-input-assignee" type="text" class="user">
+						<span class="attribute-name">Assignee:</span> <input
+							id="ticket-editor-input-assignee" type="text" class="user">
 					</div>
 				</fieldset>
-				<fieldset class="ticket-editor-dated-fieldset fieldset-input-fixed-height">
+				<fieldset
+					class="ticket-editor-dated-fieldset fieldset-input-fixed-height">
 					<legend>Dates</legend>
 					<div>
-						<span class="attribute-name">Created:</span> <span id="ticket-editor-created"
-							class="form-editor-fixed-value-field"></span>
+						<span class="attribute-name">Created:</span> <span
+							id="ticket-editor-created" class="form-editor-fixed-value-field"></span>
 					</div>
 					<div>
-						<span class="attribute-name">Deadline:</span> <input id="ticket-editor-input-deadline" type="text"
-							class="calendar">
+						<span class="attribute-name">Deadline:</span> <input
+							id="ticket-editor-input-deadline" type="text" class="calendar">
 					</div>
 				</fieldset>
 			</div>

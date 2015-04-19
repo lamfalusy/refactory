@@ -39,24 +39,28 @@
 <link href="../resources/picklist/jquery-picklist.css" rel="stylesheet">
 
 <!-- Application -->
-<script src="../resources/js/refactory.js"></script>
-<script src="../resources/js/navbar.js"></script>
-<c:if test="${fn:endsWith(pageContext.request.requestURI, '/index.jsp')}">
-	<link href="../resources/style/ticketsite.css" rel="stylesheet">
-</c:if>
-<c:if test="${fn:endsWith(pageContext.request.requestURI, '/project.jsp')}">
-    <link href="../resources/style/projectsite.css" rel="stylesheet">
-</c:if>
-<c:if test="${fn:endsWith(pageContext.request.requestURI, '/adminPage.jsp')}">
-	<link href="../resources/style/adminsite.css" rel="stylesheet">
-</c:if>
 
 <link href="../resources/style/main.css" rel="stylesheet">
-<link href="../resources/style/login.css" rel="stylesheet">
 <link href="../resources/style/navbar.css" rel="stylesheet">
 <link href="../resources/style/datatable.css" rel="stylesheet">
 <link href="../resources/style/formeditor.css" rel="stylesheet">
 <link href="../resources/style/inputfields.css" rel="stylesheet">
+<script src="../resources/js/navbar.js"></script>
+<c:if test="${fn:endsWith(pageContext.request.requestURI, '/index.jsp')}">
+	<link href="../resources/style/ticketsite.css" rel="stylesheet">
+	<script src="../resources/js/ticket.js"></script>
+</c:if>
+<c:if test="${fn:endsWith(pageContext.request.requestURI, '/project.jsp')}">
+    <link href="../resources/style/projectsite.css" rel="stylesheet">
+    <script src="../resources/js/project.js"></script>
+</c:if>
+<c:if test="${fn:endsWith(pageContext.request.requestURI, '/adminPage.jsp')}">
+	<link href="../resources/style/adminsite.css" rel="stylesheet">
+	<script src="../resources/js/adminPage.js"></script>
+</c:if>
+<c:if test="${fn:endsWith(pageContext.request.requestURI, '/login.jsp')}">
+	<link href="../resources/style/login.css" rel="stylesheet">
+</c:if>
 
 <script>
 	
