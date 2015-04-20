@@ -277,20 +277,6 @@ function addComment(id, comment) {
 	});
 }
 
-function sitesImport(url) {
-	console.log(url);
-	$.ajax({
-		url : 'SitesImportServlet',
-		data : {
-			url : url,
-		},
-		dataType : 'json',
-		success : function(response) {
-			createMessageBox("info", "Success import!");
-		}
-	});
-}
-
 function numberOfTickets() {
 	return table.fnGetData().length;
 }

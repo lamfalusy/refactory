@@ -46,6 +46,9 @@ public class CreateTicketServlet extends HttpServlet {
 		ticket.setCreated(new Date());
 		ticket.setReporter(SessionUtil.getUserFromSession(request));
 		
+		//temp majd lesz valami
+		ticket.setProjectId(2L);
+		
 		Long id = ServiceLocator.getTicketService().createTicket(ticket);
 
 		if (id != null) {

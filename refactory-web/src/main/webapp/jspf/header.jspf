@@ -61,6 +61,9 @@
 <c:if test="${fn:endsWith(pageContext.request.requestURI, '/login.jsp')}">
 	<link href="../resources/style/login.css" rel="stylesheet">
 </c:if>
+<c:if test="${fn:endsWith(pageContext.request.requestURI, '/import.jsp')}">
+	<script src="../resources/js/import.js"></script>
+</c:if>
 
 <script>
 	

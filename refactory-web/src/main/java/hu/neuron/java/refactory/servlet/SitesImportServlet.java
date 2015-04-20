@@ -4,6 +4,11 @@ import hu.neuron.java.refactory.service.ServiceLocator;
 import hu.neuron.java.refactory.sitesimport.exception.SitesImportException;
 import hu.neuron.java.refactory.sitesimport.service.SitesImportFacade;
 import hu.neuron.java.refactory.sitesimport.service.impl.SitesImportFacadeImpl;
+import hu.neuron.java.refactory.type.PriorityType;
+import hu.neuron.java.refactory.type.StatusType;
+import hu.neuron.java.refactory.type.TicketType;
+import hu.neuron.java.refactory.util.SessionUtil;
+import hu.neuron.java.refactory.vo.TicketVO;
 
 import java.io.IOException;
 import java.util.Date;
@@ -13,13 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import hu.neuron.java.refactory.type.PriorityType;
-import hu.neuron.java.refactory.type.StatusType;
-import hu.neuron.java.refactory.type.TicketType;
-import hu.neuron.java.refactory.util.SessionHandler;
-import hu.neuron.java.refactory.util.SessionUtil;
-import hu.neuron.java.refactory.vo.TicketVO;
 
 /**
  * Servlet implementation class AddCommentServlet
@@ -58,6 +56,7 @@ public class SitesImportServlet extends HttpServlet {
 			for(TicketVO ticket : tickets){
 				index++;
 				
+				ticket.setProjectId(2L);
 				ticket.setProjectName("UPC-WS");
 				ticket.setTitle("Sites CPD hiba "+index);
 				ticket.setType(TicketType.BUG);
@@ -68,6 +67,7 @@ public class SitesImportServlet extends HttpServlet {
 				ticket.setCreated(new Date());
 				ticket.setDeadline(new Date());
 				
+				System.out.println("vlaami");
 				ServiceLocator.getTicketService().createTicket(ticket);
 			}
 			
