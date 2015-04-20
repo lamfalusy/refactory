@@ -1,10 +1,10 @@
 package hu.neuron.java.refactory.service;
 
 import hu.neuron.java.refactory.dao.ProjectDAOFactory;
-import hu.neuron.java.refactory.dao.project.ProjectDAO;
 import hu.neuron.java.refactory.dao.project.impl.ProjectDAOImpl;
 import hu.neuron.java.refactory.vo.ProjectVO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProjectServiceImpl implements ProjectService {
@@ -53,7 +53,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ProjectVO getProjectById(Long projectId) {
-		return ProjectDAOImpl.entityToVO(ProjectDAOFactory.getProjectDao().findProjectById(projectId));
+		try {
+			return ProjectDAOImpl.entityToVO(ProjectDAOFactory.getProjectDao().findProjectById(projectId));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

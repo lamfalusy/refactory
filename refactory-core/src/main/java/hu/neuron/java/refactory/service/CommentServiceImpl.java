@@ -1,13 +1,10 @@
 package hu.neuron.java.refactory.service;
 
 import hu.neuron.java.refactory.dao.CommentDAOFactory;
-import hu.neuron.java.refactory.dao.comment.impl.CommentDAOImpl;
 import hu.neuron.java.refactory.entity.Comment;
-import hu.neuron.java.refactory.entity.Ticket;
 import hu.neuron.java.refactory.vo.CommentVO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommentServiceImpl implements CommentService {
